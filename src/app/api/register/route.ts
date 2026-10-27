@@ -8,7 +8,7 @@ import { notify } from "@/lib/notify";
 import { nextId } from "@/lib/store";
 import { now } from "@/lib/time";
 import { DomainError } from "@/lib/types";
-import { getPlan } from "@/config/tenant";
+import { getPlan, tenant } from "@/config/tenant";
 
 const Body = z.object({
   name: z.string().trim().min(3, "Escribe tu nombre completo."),
@@ -45,7 +45,7 @@ export function POST(req: Request) {
       createdAt: at.toISOString(),
     });
     db.contracts.push({ memberId: id, signedAt: at.toISOString(), signature: b.signature });
-    notify(db, id, "system", "Bienvenido a Bulltrain", "Tu contrato quedó firmado. Esta es una demostración con datos de ejemplo.", at);
+    notify(db, id, "system", `Bienvenido a ${tenant.brand.name} ${tenant.brand.subtitle}`, "Tu contrato quedó firmado. Esta es una demostración con datos de ejemplo.", at);
     const { payment, membership } = registerPayment(db, id, b.planId, "bold", b.paymentOutcome, at);
     (await cookies()).set(SESSION_COOKIE, id, { httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 7 });
     return ok({ memberId: id, payment: { status: payment.status, receiptNo: payment.receiptNo }, active: !!membership }, 201);

@@ -2,9 +2,25 @@
 @import "@fontsource/barlow/400.css";
 @import "@fontsource/barlow/500.css";
 @import "@fontsource/barlow/600.css";
-@import "@fontsource/barlow-condensed/600.css";
-@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/cinzel/600.css";
+@import "@fontsource/cinzel/700.css";
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/600.css";
+@import "@fontsource/anton/400.css";
 
+/*
+ * Colors and fonts below are only the fallback. Each gym sets its own values in
+ * src/config/tenants/<gym>.ts and the root layout writes them over these.
+ */
 @theme {
   --color-ink: #0b0b0a;
   --color-surface: #151513;
@@ -14,12 +30,19 @@
   --color-muted: #a3a094;
   --color-accent: #ffc20e;
   --color-accent-ink: #151100;
+  --color-accent-2: #8a6a1f;
   --color-ok: #5fd39a;
   --color-warn: #ffb020;
   --color-bad: #ff6b6b;
   --color-info: #8fb4ff;
-  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-display: "Barlow", "Arial Narrow", sans-serif;
   --font-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --heading-case: uppercase;
+  --heading-weight: 700;
+  --heading-tracking: 0.02em;
 }
 
 html { color-scheme: dark; }
@@ -31,10 +54,10 @@ body {
 }
 h1, h2, h3, .display {
   font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  font-weight: var(--heading-weight);
+  text-transform: var(--heading-case);
+  letter-spacing: var(--heading-tracking);
+  line-height: 1.05;
 }
 :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

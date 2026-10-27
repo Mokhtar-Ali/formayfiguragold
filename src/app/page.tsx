@@ -1,22 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import { classTypes, coaches, plans, tenant } from "@/config/tenant";
 import { getSession } from "@/lib/auth";
 import { ClassCard, type Viewer } from "@/components/ClassCard";
 import { OpenNow } from "@/components/OpenNow";
+import { HeroArt } from "@/components/HeroArt";
+import { ClassCover } from "@/components/ClassCover";
 import { getDb } from "@/lib/db";
 import { dateKey, formatDay, now } from "@/lib/time";
 import { classView } from "@/lib/views";
 import { getT } from "@/lib/lang";
 
 export const dynamic = "force-dynamic";
-
-/** Photos come from Bulltrain's own social media. Confirm usage with the gym before launch. */
-const PHOTO: Record<string, { src: string; alt: string; pos?: string; fit?: "contain" }> = {
-  hibrido: { src: "/classes/hibrido.jpg", alt: "Socia haciendo zancada con mancuerna", pos: "50% 12%" },
-  bullrunning: { src: "/bull.png", alt: "Mascota de Bulltrain corriendo", pos: "50% 40%", fit: "contain" },
-  cycling: { src: "/classes/cycling.jpg", alt: "Dos socias en la sala de cycling", pos: "50% 35%" },
-};
 
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tenant.contact.mapsQuery)}`;
 
@@ -50,7 +44,7 @@ export default async function Home() {
             </div>
             <OpenNow className="mt-6" />
           </div>
-          <Image src="/bull.png" alt={t.home.heroAlt} width={597} height={759} priority className="mx-auto h-auto max-h-[56svh] w-auto max-w-full lg:mr-0 lg:justify-self-end [mask-image:radial-gradient(ellipse_at_center,#000_62%,transparent_98%)]" />
+          <HeroArt className="mx-auto h-auto max-h-[56svh] w-auto max-w-full lg:mr-0 lg:justify-self-end" />
         </div>
 
         <div aria-label="Próximas clases">
@@ -74,9 +68,7 @@ export default async function Home() {
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {classTypes.map((ct) => (
             <article key={ct.id} className="overflow-hidden border border-line bg-surface" style={{ borderTop: `4px solid ${ct.color}` }}>
-              <div className={`relative h-72 ${PHOTO[ct.id].fit === "contain" ? "bg-ink" : ""}`}>
-                <Image src={PHOTO[ct.id].src} alt={t.classTypes[ct.id].name} fill sizes="(min-width: 768px) 33vw, 100vw" className={PHOTO[ct.id].fit === "contain" ? "object-contain" : "object-cover"} style={{ objectPosition: PHOTO[ct.id].pos }} />
-              </div>
+              <ClassCover name={t.classTypes[ct.id].name} color={ct.color} className="h-56" />
               <div className="p-6">
                 <h3 className="text-3xl">{t.classTypes[ct.id].name}</h3>
                 <p className="mt-3 text-muted">{t.classTypes[ct.id].blurb}</p>

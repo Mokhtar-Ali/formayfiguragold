@@ -1,3 +1,4 @@
+import { tenant } from "@/config/tenant";
 import { handle } from "@/lib/api";
 import { getDb } from "@/lib/db";
 import { getSession } from "@/lib/auth";
@@ -9,7 +10,7 @@ export function GET() {
   return handle(async () => {
     requireRole(await getSession(), "admin");
     return new Response("﻿" + membersCsv(getDb(), now()), {
-      headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="socios-bulltrain.csv"' },
+      headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": `attachment; filename="socios-${tenant.id}.csv"` },
     });
   });
 }

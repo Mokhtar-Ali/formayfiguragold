@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { getT } from "@/lib/lang";
 
@@ -6,10 +5,10 @@ export default async function NotFound() {
   const { t } = await getT();
   const c = t.notFound.cards;
   const cards = [
-    { href: "/horarios", label: c.schedule, img: "/classes/cycling.jpg", pos: "50% 35%" },
-    { href: "/unete", label: c.join, img: "/classes/hibrido.jpg", pos: "50% 12%" },
-    { href: "/entrar", label: c.enter, img: "/bull.png" },
-    { href: "/", label: c.home, img: "/logo.png" },
+    { href: "/horarios", label: c.schedule },
+    { href: "/unete", label: c.join },
+    { href: "/entrar", label: c.enter },
+    { href: "/", label: c.home },
   ];
   return (
     <div className="px-6 pt-10 lg:px-16">
@@ -19,8 +18,8 @@ export default async function NotFound() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((k) => (
           <Link key={k.href} href={k.href} className="group border border-line bg-surface hover:border-accent">
-            <div className="relative aspect-[4/3] overflow-hidden bg-black">
-              <Image src={k.img} alt="" style={{ objectPosition: k.pos }} fill sizes="(min-width:1024px) 25vw, 50vw" className={`${k.img.endsWith("png") ? "object-contain p-4" : "object-cover"} transition-transform duration-300 group-hover:scale-105`} />
+            <div className="aspect-[4/3] bg-gradient-to-br from-surface-2 to-ink" aria-hidden>
+              <div className="h-full w-full opacity-60" style={{ backgroundImage: "repeating-linear-gradient(115deg, var(--color-accent) 0 1px, transparent 1px 16px)", opacity: 0.18 }} />
             </div>
             <div className="p-4">
               <p className="font-display text-2xl font-bold uppercase group-hover:text-accent">{k.label[0]}</p>
