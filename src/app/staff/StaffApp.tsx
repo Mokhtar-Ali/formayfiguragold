@@ -22,7 +22,7 @@ export function StaffApp({ role, classTypes, coaches, plans }: { role: Role; cla
   const tabs = [
     { id: "hoy", label: "Hoy" },
     { id: "calendario", label: "Calendario" },
-    ...(role !== "coach" ? [{ id: "socios", label: "Socios" }, { id: "pagos", label: "Pagos" }] : []),
+    ...(role !== "coach" ? [{ id: "socios", label: "Socios" }, { id: "pagos", label: "Pagos" }, { id: "eventos", label: "Eventos" }, { id: "buzon", label: "Buzón" }] : []),
     ...(role === "admin" ? [{ id: "clases", label: "Clases" }, { id: "reportes", label: "Reportes" }] : []),
     { id: "novedades", label: "Novedades" },
     { id: "ayuda", label: "Ayuda" },
@@ -38,6 +38,8 @@ export function StaffApp({ role, classTypes, coaches, plans }: { role: Role; cla
         {tab === "calendario" && <CalendarPicker allowPast renderDay={(d) => <Today key={d} date={d} />} />}
         {tab === "socios" && <Members plans={plans} />}
         {tab === "pagos" && <Payments />}
+        {tab === "eventos" && <EventsAdmin />}
+        {tab === "buzon" && <Inbox />}
         {tab === "clases" && <Classes classTypes={classTypes} coaches={coaches} />}
         {tab === "reportes" && <Reports />}
         {tab === "novedades" && <Updates />}
@@ -278,5 +280,54 @@ function Updates() {
         </li>
       ))}
     </ol>
+  );
+}
+
+interface EventRow { id: string; title: string; date: string; time: string; capacity: number; spotsLeft: number; signups: { id: string; name: string; phone: string; people: number; createdAt: string }[] }
+
+function EventsAdmin() {
+  const [rows, setRows] = useState<EventRow[] | null>(null);
+  useEffect(() => { api<{ events: EventRow[] }>("/api/staff/events").then((r) => setRows(r.events)); }, []);
+  if (!rows) return <p className="text-muted">Cargando...</p>;
+  if (rows.length === 0) return <p className="text-muted">No hay eventos configurados.</p>;
+  return (
+    <div className="space-y-8">
+      {rows.map((e) => (
+        <section key={e.id} className="border border-line bg-surface p-5">
+          <h3 className="text-2xl">{e.title}</h3>
+          <p className="mt-1 text-muted">{e.date} {e.time}. {e.capacity - e.spotsLeft} de {e.capacity} cupos ocupados, quedan {e.spotsLeft}.</p>
+          {e.signups.length === 0 ? <p className="mt-3 text-muted">Sin inscritos.</p> : (
+            <table className="mt-4 w-full text-left text-sm">
+              <thead className="text-muted"><tr><th className="py-2">Nombre</th><th>Teléfono</th><th>Personas</th><th>Inscrito</th></tr></thead>
+              <tbody>
+                {e.signups.map((s) => <tr key={s.id} className="border-t border-line"><td className="py-2">{s.name}</td><td>{s.phone}</td><td>{s.people}</td><td>{formatDay(s.createdAt)} {formatTime(s.createdAt)}</td></tr>)}
+              </tbody>
+            </table>
+          )}
+        </section>
+      ))}
+    </div>
+  );
+}
+
+interface Sug { id: string; kind: "idea" | "queja" | "felicitacion"; name?: string; message: string; createdAt: string; read: boolean }
+const KIND_LABEL = { idea: "Idea", queja: "Para mejorar", felicitacion: "Felicitación" } as const;
+
+function Inbox() {
+  const [rows, setRows] = useState<Sug[] | null>(null);
+  const load = useCallback(async () => { setRows((await api<{ suggestions: Sug[] }>("/api/staff/suggestions")).suggestions); }, []);
+  useEffect(() => { load(); }, [load]);
+  if (!rows) return <p className="text-muted">Cargando...</p>;
+  if (rows.length === 0) return <p className="text-muted">El buzón está vacío. Los mensajes del formulario público llegan aquí.</p>;
+  return (
+    <ul className="space-y-3">
+      {rows.map((s) => (
+        <li key={s.id} className={`border bg-surface p-4 ${s.read ? "border-line" : "border-accent"}`}>
+          <p className="text-sm text-muted">{KIND_LABEL[s.kind]} · {s.name ?? "Anónimo"} · {formatDay(s.createdAt)} {formatTime(s.createdAt)}</p>
+          <p className="mt-2">{s.message}</p>
+          {!s.read && <button className={`${small} mt-3`} onClick={async () => { await api("/api/staff/suggestions", "PATCH", { id: s.id }); load(); }}>Marcar como leído</button>}
+        </li>
+      ))}
+    </ul>
   );
 }

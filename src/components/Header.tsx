@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { getT } from "@/lib/lang";
+import { events } from "@/config/tenant";
 import { Logo } from "./Logo";
 import { Bell, LogoutButton, RoleSwitcher } from "./HeaderClient";
 
@@ -16,6 +17,8 @@ export async function Header() {
         <nav className="flex flex-wrap items-center gap-x-8 gap-y-2 text-lg font-medium">
           <Link href="/horarios" className={link}>{t.nav.schedule}</Link>
           <Link href="/unete" className={link}>{t.nav.join}</Link>
+          {events.length > 0 && <Link href="/eventos" className={link}>Eventos</Link>}
+          <Link href="/buzon" className={link}>Buzón</Link>
           {me?.role === "member" && <Link href="/portal/ayuda" className={link}>{t.nav.help}</Link>}
           <Link href={home} className={link}>{me ? (me.role === "member" ? t.nav.account : t.nav.team) : t.nav.enter}</Link>
           {me && (

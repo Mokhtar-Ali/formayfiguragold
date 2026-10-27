@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { tenant } from "@/config/tenant";
+import { events, tenant } from "@/config/tenant";
 import { getT } from "@/lib/lang";
 import { Logo } from "./Logo";
 
@@ -19,6 +19,8 @@ export async function Footer() {
   const NAV = [
     { href: "/", label: f.home },
     { href: "/unete", label: t.nav.join },
+    ...(events.length > 0 ? [{ href: "/eventos", label: "Eventos" }] : []),
+    { href: "/buzon", label: "Buzón" },
     { href: "/entrar", label: t.nav.enter },
     { href: "/demo", label: t.site.demoLink },
   ];
