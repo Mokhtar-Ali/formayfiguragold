@@ -10,6 +10,9 @@ import { registerPayment } from "../src/lib/membership";
 import { balance } from "../src/lib/ledger";
 import { sendClassReminders, runMembershipRenewals } from "../src/lib/jobs";
 import { buildReport } from "../src/lib/reports";
+import { openStatus } from "../src/lib/hours";
+import { tenant } from "../src/config/tenant";
+import { addDays, fromKey } from "../src/lib/time";
 import { createClass } from "../src/lib/classes";
 import { DomainError } from "../src/lib/types";
 import type { Db, Profile, Slot } from "../src/lib/types";
@@ -312,6 +315,30 @@ test("the seed leaves each event with a few spots left", () => {
   for (const e of events) {
     const left = eventSpotsLeft(seeded, e);
     assert.ok(left > 0 && left <= 7, `${e.id} has ${left} left`);
+  }
+});
+
+console.log("opening hours");
+test("open now follows the weekly hours and skips closed days", () => {
+  const monday = "2026-11-02";
+  for (let i = 0; i < 7; i++) {
+    const key = addDays(monday, i);
+    const wd = (1 + i) % 7;
+    const hours = tenant.openingHours[wd];
+    const noon = fromKey(key, "12:00");
+    const s = openStatus(noon);
+    if (!hours) {
+      assert.equal(s.open, false, `${key} should be closed`);
+      assert.ok(s.at > noon, "next opening is later");
+      assert.ok(tenant.openingHours[(wd + s.dayOffset) % 7], "next opening falls on an open day");
+    } else {
+      const [o, c] = hours;
+      const inside = noon >= fromKey(key, o) && noon < fromKey(key, c);
+      assert.equal(s.open, inside, `${key} noon`);
+      const early = openStatus(fromKey(key, "03:00"));
+      assert.equal(early.open, false);
+      assert.equal(early.at.getTime(), fromKey(key, o).getTime());
+    }
   }
 });
 
