@@ -17,7 +17,7 @@ export function ClassCover({ name, color, className = "" }: { name: string; colo
         style={{ backgroundImage: `repeating-linear-gradient(115deg, ${color}22 0 1px, transparent 1px 14px)` }}
       />
       <p
-        className="absolute inset-x-5 bottom-3 select-none font-display text-[clamp(3.5rem,9vw,6rem)] font-bold uppercase leading-[0.85]"
+        className="absolute inset-x-5 bottom-3 select-none font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-bold uppercase leading-[0.9]"
         style={{ color: "transparent", WebkitTextStroke: `1.5px ${color}` }}
         aria-hidden
       >

@@ -36,7 +36,7 @@ export default async function Home() {
               {t.home.title1}<br />{t.home.title2}
             </h1>
             <p className="mt-6 max-w-md text-lg text-muted">
-              {t.footer.tagline}. {t.home.sub}
+              {t.home.sub}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/horarios" className="bg-accent px-6 py-3 font-semibold text-accent-ink hover:brightness-110">{t.home.seeSchedule}</Link>
@@ -44,7 +44,7 @@ export default async function Home() {
             </div>
             <OpenNow className="mt-6" />
           </div>
-          <HeroArt className="mx-auto h-auto max-h-[56svh] w-auto max-w-full lg:mr-0 lg:justify-self-end" />
+          <HeroArt className="mx-auto aspect-square h-[min(52svh,460px)] w-auto max-w-full lg:mr-0 lg:justify-self-end" />
         </div>
 
         <div aria-label="Próximas clases">
