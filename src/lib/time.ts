@@ -57,12 +57,10 @@ export function mondayOf(key: string): string {
 
 const timeFmt = new Intl.DateTimeFormat("es-CO", { timeZone: tenant.timezone, hour: "numeric", minute: "2-digit", hour12: true });
 const dayFmt = new Intl.DateTimeFormat("es-CO", { timeZone: tenant.timezone, weekday: "short", day: "numeric", month: "short" });
-const dayFmtEn = new Intl.DateTimeFormat("en-US", { timeZone: tenant.timezone, weekday: "short", month: "short", day: "numeric" });
-const longDayFmtEn = new Intl.DateTimeFormat("en-US", { timeZone: tenant.timezone, weekday: "long", month: "long", day: "numeric" });
 const longDayFmt = new Intl.DateTimeFormat("es-CO", { timeZone: tenant.timezone, weekday: "long", day: "numeric", month: "long" });
 
 export const formatTime = (d: Date | string) => timeFmt.format(new Date(d)).replace(/\./g, "").replace(/\s?([ap])\s?m/i, (_, x) => ` ${x.toUpperCase()}M`);
-export const formatDay = (d: Date | string, lang: "es" | "en" = "es") => (lang === "en" ? dayFmtEn : dayFmt).format(new Date(d)).replace(/\./g, "");
-export const formatLongDay = (d: Date | string, lang: "es" | "en" = "es") => (lang === "en" ? longDayFmtEn : longDayFmt).format(new Date(d));
+export const formatDay = (d: Date | string, _lang?: string) => dayFmt.format(new Date(d)).replace(/\./g, "");
+export const formatLongDay = (d: Date | string, _lang?: string) => longDayFmt.format(new Date(d));
 export const formatCop = (n: number) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(n);

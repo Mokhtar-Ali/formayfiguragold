@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { getT } from "@/lib/lang";
 import { Logo } from "./Logo";
-import { LangSwitch } from "./LangSwitch";
 import { Bell, LogoutButton, RoleSwitcher } from "./HeaderClient";
 
 export async function Header() {
@@ -26,7 +25,6 @@ export async function Header() {
               <LogoutButton />
             </>
           )}
-          <LangSwitch />
         </nav>
       </div>
     </header>
