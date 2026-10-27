@@ -52,7 +52,7 @@ export interface TenantConfig {
   };
   hours: readonly { days: string; time: string }[];
   /** Opening hours by weekday (0 = Sunday), "HH:MM" local time. Drives the "open now" label. */
-  openingHours: Record<number, [string, string]>;
+  openingHours: Record<number, [string, string] | null>;
   booking: {
     maxBookingsPerDay: number;
     cancelWindowHours: number;
