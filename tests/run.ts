@@ -3,7 +3,7 @@ import { colombianHolidays, holidayName } from "../src/lib/holidays";
 import { generateSlots } from "../src/lib/schedule";
 import { seedDb, DEMO_ACCOUNTS } from "../src/lib/seed";
 import { emptyDb, nextId } from "../src/lib/store";
-import { templates } from "../src/config/tenant";
+import { classTypes, coaches, templates } from "../src/config/tenant";
 import { bookSlot, cancelBooking, checkIn, spotsLeft, waitlistFor, cancelSlot } from "../src/lib/booking";
 import { registerPayment } from "../src/lib/membership";
 import { balance } from "../src/lib/ledger";
@@ -38,7 +38,7 @@ function world() {
   const coach = mk("coach", "coach", { coachId: "c_andres" });
   const a = mk("a", "member"); const b = mk("b", "member"); const c = mk("c", "member");
   const slot = (id: string, startMs: number, capacity: number, coachId = "c_andres"): Slot => {
-    const s: Slot = { id, classTypeId: "hibrido", startsAt: new Date(startMs).toISOString(), endsAt: new Date(startMs + HOUR).toISOString(), capacity, coachId, status: "scheduled" };
+    const s: Slot = { id, classTypeId: classTypes[0].id, startsAt: new Date(startMs).toISOString(), endsAt: new Date(startMs + HOUR).toISOString(), capacity, coachId, status: "scheduled" };
     db.slots.push(s); return s;
   };
   return { db, admin, reception, coach, a, b, c, slot };
@@ -237,7 +237,7 @@ test("early renewal does not lose days", () => {
 console.log("admin");
 test("only admins create classes", () => {
   const { db, admin, reception } = world();
-  const input = { classTypeId: "hibrido", date: "2026-11-02", time: "18:00", durationMin: 60, capacity: 10, coachId: "c_andres" };
+  const input = { classTypeId: classTypes[0].id, date: "2026-11-02", time: "18:00", durationMin: 60, capacity: 10, coachId: coaches[0].id };
   throwsCode(() => createClass(db, reception, input, NOW), "FORBIDDEN");
   const s = createClass(db, admin, input, NOW);
   assert.equal(s.capacity, 10);

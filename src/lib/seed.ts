@@ -1,4 +1,4 @@
-import { getPlan, plans, templates, tenant } from "@/config/tenant";
+import { classTypes, coaches, getPlan, plans, templates, tenant } from "@/config/tenant";
 import type { Db, Profile } from "./types";
 import { emptyDb, nextId } from "./store";
 import { generateSlots } from "./schedule";
@@ -56,7 +56,8 @@ export function seedDb(nowDate: Date): Db {
   // Staff and the demo member
   mk({ id: DEMO_ACCOUNTS.admin, name: "Admin Demo", role: "admin", isDemoAccount: true }, 400);
   mk({ id: DEMO_ACCOUNTS.reception, name: "Recepción Demo", role: "reception", isDemoAccount: true }, 400);
-  mk({ id: DEMO_ACCOUNTS.coach, name: "Coach Andrés", role: "coach", coachId: "c_andres", isDemoAccount: true }, 400);
+  const demoCoach = coaches.find((c) => c.id === tenant.copy.demoCoachId) ?? coaches[0];
+  mk({ id: DEMO_ACCOUNTS.coach, name: demoCoach.name, role: "coach", coachId: demoCoach.id, isDemoAccount: true }, 400);
   const demo = mk({ id: DEMO_ACCOUNTS.member, name: "Camila Demo", role: "member", isDemoAccount: true }, 20);
 
   // The demo member: a 12-class pack that started 20 days ago
@@ -116,8 +117,11 @@ export function seedDb(nowDate: Date): Db {
     }
   }
 
-  // The demo member went to four Híbrido classes
-  const demoPast = past.filter((s) => s.classTypeId === "hibrido").slice(-4);
+  // The first class type is the flagship one. The demo member went to four of them,
+  // and the next ones fill up so the waitlist can be shown.
+  const mainType = classTypes[0].id;
+  const secondType = (classTypes.find((c) => c.id !== mainType) ?? classTypes[0]).id;
+  const demoPast = past.filter((s) => s.classTypeId === mainType).slice(-4);
   for (const slot of demoPast) {
     const id = nextId(db, "b");
     db.bookings.push({
@@ -135,7 +139,7 @@ export function seedDb(nowDate: Date): Db {
   // Upcoming classes, booked through the real engine
   const upcoming = db.slots.filter((s) => new Date(s.startsAt) > nowDate).sort((a, b) => a.startsAt.localeCompare(b.startsAt));
   const window = upcoming.filter((s) => new Date(s.startsAt).getTime() < nowDate.getTime() + 13 * day);
-  const hib = window.filter((s) => s.classTypeId === "hibrido");
+  const hib = window.filter((s) => s.classTypeId === mainType);
   const shuffled = [...members].sort(() => r() - 0.5);
   for (const slot of window) {
     const fullTarget = hib[0] && slot.id === hib[0].id;
@@ -158,8 +162,8 @@ export function seedDb(nowDate: Date): Db {
   }
 
   // The demo member already has one class booked
-  const cycling = window.find((s) => s.classTypeId === "cycling");
-  if (cycling) { try { bookSlot(db, demo.id, cycling.id, nowDate); } catch { /* ignore */ } }
+  const second = window.find((s) => s.classTypeId === secondType);
+  if (second) { try { bookSlot(db, demo.id, second.id, nowDate); } catch { /* ignore */ } }
 
   // Quiet the bell for sample data, then leave a couple of fresh notices for the demo member
   for (const n of db.notifications) n.readAt = n.createdAt;

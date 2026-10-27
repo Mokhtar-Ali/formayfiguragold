@@ -1,3 +1,5 @@
+import { classTypes, coaches, plans, tenant } from "@/config/tenant";
+
 export type Lang = "es";
 export const DEFAULT_LANG: Lang = "es";
 
@@ -6,13 +8,19 @@ export const DEFAULT_LANG: Lang = "es";
  * so the config in tenant.ts stays the single source of what exists.
  * The member portal, staff panel, help center and server messages are still Spanish only.
  */
+const BRAND = `${tenant.brand.name} ${tenant.brand.subtitle}`;
+const copy = tenant.copy;
+const demoCoach = coaches.find((c) => c.id === copy.demoCoachId) ?? coaches[0];
+const pick = <T extends { id: string }>(list: T[], fields: (x: T) => { name: string; blurb: string }) =>
+  Object.fromEntries(list.map((x) => [x.id, fields(x)])) as Record<string, { name: string; blurb: string }>;
+
 const es = {
   nav: { schedule: "Horarios", join: "Únete", help: "Ayuda", enter: "Entrar", account: "Mi cuenta", team: "Panel del equipo", viewAs: "Ver como", logout: "Salir" },
-  roles: { demo_member: "Miembro: Camila", demo_coach: "Coach: Andrés", demo_reception: "Recepción", demo_admin: "Administrador", newMember: "Socio nuevo" },
+  roles: { demo_member: "Miembro: Camila", demo_coach: `Coach: ${demoCoach.name.replace(/^Coach\s+/, "")}`, demo_reception: "Recepción", demo_admin: "Administrador", newMember: "Socio nuevo" },
   home: {
-    title1: "Entrena donde hay", title2: "cupo para ti",
-    sub: "Reserva tu clase, mira los cupos en tiempo real y entra a la lista de espera si se llena.",
-    seeSchedule: "Ver horarios", join: "Únete a Bulltrain",
+    title1: copy.hero.title1, title2: copy.hero.title2,
+    sub: copy.hero.sub,
+    seeSchedule: "Ver horarios", join: `Únete a ${BRAND}`,
     next: "Próximas clases", live: "En vivo", today: "Hoy", full: "Llena", spot: "cupo", spots: "cupos",
     ways: "Tres formas de entrenar", partner: "En alianza con",
     bookTitle: "Reservar es de un toque",
@@ -21,19 +29,10 @@ const es = {
     tryTitle: "Prueba el sistema tú mismo",
     tryText: "Entra como miembro, coach, recepción o administrador y recorre todo: reservas, lista de espera, asistencia y reportes.",
     tryBtn: "Elegir un perfil de prueba",
-    heroAlt: "Mascota de Bulltrain corriendo",
+    heroAlt: copy.hero.artAlt,
   },
-  classTypes: {
-    hibrido: { name: "Entrenamiento Híbrido", blurb: "Fuerza y cardio en una sola sesión, con cupos limitados." },
-    bullrunning: { name: "BullRunning", blurb: "Salida de running en grupo, con técnica y ritmo." },
-    cycling: { name: "Cycling", blurb: "Sala de cycling con música y luces." },
-  } as Record<string, { name: string; blurb: string }>,
-  plans: {
-    mensual: { name: "Mensual ilimitado", blurb: "Reserva todas las clases que quieras durante 30 días." },
-    pack12: { name: "Paquete de 12 clases", blurb: "12 créditos para usar en 45 días." },
-    pack8: { name: "Paquete de 8 clases", blurb: "8 créditos para usar en 30 días." },
-    dia: { name: "Pase del día", blurb: "Una clase, un día. Ideal para conocer el gimnasio." },
-  } as Record<string, { name: string; blurb: string }>,
+  classTypes: pick(classTypes, (c) => ({ name: c.name, blurb: c.blurb })),
+  plans: pick(plans, (p) => ({ name: p.name, blurb: p.blurb })),
   card: {
     cancelled: "Cancelada", full: "Llena", fullWaiting: "Llena, {n} en espera", spots: "{n} cupos", spot: "1 cupo",
     loginToBook: "Entra para reservar", booked: "Reservada. Cancelar", waiting: "En espera, puesto {n}. Salir",
@@ -49,19 +48,19 @@ const es = {
     cards: { home: ["Inicio", "Conoce el gimnasio"], schedule: ["Horarios", "Mira las clases y los cupos en vivo"], join: ["Únete", "Crea tu cuenta y activa un plan"], enter: ["Entrar", "Reserva y revisa tu plan"] },
   },
   site: {
-    metaTitle: "Bulltrain Entrenamiento | Gimnasio en Laureles, Medellín",
-    metaDesc: "Gimnasio en Laureles, Medellín. Entrenamiento híbrido, BullRunning y cycling con cupos limitados. Reserva tu clase en línea y entra a la lista de espera si se llena.",
+    metaTitle: copy.metaTitle,
+    metaDesc: copy.metaDescription,
     openNow: "Abierto ahora", closedNow: "Cerrado ahora", until: "hasta las {t}", opensAt: "abre {d} a las {t}",
     today: "hoy", tomorrow: "mañana", days: ["el domingo", "el lunes", "el martes", "el miércoles", "el jueves", "el viernes", "el sábado"],
-    whatsapp: "WhatsApp", call: "Llamar", reserve: "Reservar", waMsg: "Hola, quiero información sobre Bulltrain.",
-    visit: { title: "Visítanos", sub: "Estamos en Laureles, cerca del Estadio. Pasa a conocer el gimnasio.", map: "Abrir en Google Maps", mapTitle: "Mapa de Bulltrain", hours: "Horarios de atención" },
+    whatsapp: "WhatsApp", call: "Llamar", reserve: "Reservar", waMsg: copy.whatsappMessage,
+    visit: { title: "Visítanos", sub: copy.visitSub, map: "Abrir en Google Maps", mapTitle: `Mapa de ${BRAND}`, hours: "Horarios de atención", sample: copy.sampleNote },
     plans: {
       title: "Planes y primera visita", sub: "Elige cómo quieres entrenar. Los valores los ves al unirte.",
       trialTitle: "Tu primera visita", trialText: "Con el pase del día reservas una clase y conoces el gimnasio sin compromiso.", trialBtn: "Quiero conocerlo", all: "Ver todos los planes",
     },
     coaches: {
       title: "Tu equipo", sub: "Quién dirige cada clase.", sample: "Descripciones de ejemplo. El gimnasio entrega las reales.",
-      bios: { c_andres: "Dirige el Entrenamiento Híbrido los lunes y sábados.", c_laura: "Dirige el Entrenamiento Híbrido de los miércoles y el BullRunning de los martes.", c_ciclo: "Instructor de Goodcycle. Dirige las clases de Cycling." } as Record<string, string>,
+      bios: copy.coachBios as Record<string, string>,
     },
     faq: {
       title: "Preguntas frecuentes",
@@ -74,30 +73,30 @@ const es = {
       ] as string[][],
     },
     demoLink: "Probar el demo",
-    foot: { nav: "Navegación", home: "Inicio", place: "Ubicación", area: "Laureles · Medellín", directions: "Cómo llegar", call: "Llamar", top: "Volver arriba", wa: "WhatsApp" },
+    foot: { nav: "Navegación", home: "Inicio", place: "Ubicación", area: copy.area, directions: "Cómo llegar", call: "Llamar", top: "Volver arriba", wa: "WhatsApp" },
   },
   footer: {
     hours: "Horarios", rights: "Todos los derechos reservados.", createdBy: "Sistema creado por", navLabel: "Pie de página",
     days: { "Lunes a jueves": "Lunes a jueves", Viernes: "Viernes", Sábado: "Sábado", Domingo: "Domingo" } as Record<string, string>,
-    tagline: "El Gimnasio de Laureles",
+    tagline: tenant.brand.tagline,
   },
   enter: {
     title: "Entrar a la demo", sub: "No hay contraseñas. Elige quién quieres ser y recorre el sistema con datos de ejemplo.",
     options: [
       { title: "Miembro", who: "Camila Demo", text: "Paquete de 12 clases. Reserva, cancela y prueba la lista de espera." },
-      { title: "Coach", who: "Coach Andrés", text: "Ve el listado de sus clases de hoy y registra asistencia." },
+      { title: "Coach", who: demoCoach.name, text: "Ve el listado de sus clases de hoy y registra asistencia." },
       { title: "Recepción", who: "Recepción Demo", text: "Busca socios, registra pagos en caja, ajusta créditos y hace check-in." },
       { title: "Administrador", who: "Admin Demo", text: "Todo lo anterior, más reportes, clases nuevas y exportar socios." },
     ],
   },
   join: {
-    title: "Únete a Bulltrain", sub: "Tus datos, tu plan, el contrato firmado y el pago, todo en un solo paso. En la demo el pago es simulado y los precios son de ejemplo.",
+    title: `Únete a ${BRAND}`, sub: "Tus datos, tu plan, el contrato firmado y el pago, todo en un solo paso. En la demo el pago es simulado y los precios son de ejemplo.",
     data: "Tus datos", name: "Nombre completo", email: "Correo", phone: "Teléfono", emName: "Contacto de emergencia", emPhone: "Teléfono de emergencia",
     plan: "Tu plan", sample: "precio de ejemplo", contract: "Contrato",
-    contractText: "Texto de ejemplo. El contrato real de Bulltrain se carga cuando el gimnasio lo entregue. Aquí el socio declara que está apto para hacer ejercicio, acepta el reglamento y las políticas de reserva y cancelación.",
+    contractText: `Texto de ejemplo. El contrato real de ${BRAND} se carga cuando el gimnasio lo entregue. Aquí el socio declara que está apto para hacer ejercicio, acepta el reglamento y las políticas de reserva y cancelación.`,
     accept: "Leí y acepto el contrato.", pay: "Pago", payText: "El pago se hace con Bold. En esta demo es simulado.", decline: "Simular un pago rechazado",
     submit: "Firmar y pagar", processing: "Procesando...",
-    okTitle: "Bienvenido a Bulltrain", okText: "Tu plan ya está activo. Recibo {r}.", okBtn: "Reservar mi primera clase",
+    okTitle: `Bienvenido a ${BRAND}`, okText: "Tu plan ya está activo. Recibo {r}.", okBtn: "Reservar mi primera clase",
     badTitle: "El pago fue rechazado", badText: "Tu cuenta quedó creada, pero el plan no se activó. Intenta pagar de nuevo desde Mi cuenta.", badBtn: "Ir a Mi cuenta",
     sigHint: "Firma con el dedo o el mouse.", sigDone: "Firma lista.", sigClear: "Borrar firma", sigLabel: "Espacio para firmar",
   },
