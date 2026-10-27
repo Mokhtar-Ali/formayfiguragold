@@ -21,7 +21,7 @@ const PHOTO: Record<string, { src: string; alt: string; pos?: string; fit?: "con
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tenant.contact.mapsQuery)}`;
 
 export default async function Home() {
-  const { lang, t } = await getT();
+  const { t } = await getT();
   const db = getDb();
   const me = await getSession();
   const viewer: Viewer = !me ? "guest" : me.role === "member" ? "member" : "staff";
@@ -61,7 +61,7 @@ export default async function Home() {
           <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {next.map((c) => (
               <li key={c.id}>
-                <p className="mb-1 text-sm text-muted">{dateKey(new Date(c.startsAt)) === today ? t.home.today : formatDay(c.startsAt, lang)}</p>
+                <p className="mb-1 text-sm text-muted">{dateKey(new Date(c.startsAt)) === today ? t.home.today : formatDay(c.startsAt)}</p>
                 <ClassCard c={c} viewer={viewer} />
               </li>
             ))}

@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Horarios({ searchParams }: { searchParams: Promise<{ w?: string }> }) {
   const sp = await searchParams;
-  const { lang, t } = await getT();
+  const { t } = await getT();
   const today = dateKey(now());
   const monday = mondayOf(sp.w && /^\d{4}-\d{2}-\d{2}$/.test(sp.w) ? sp.w : today);
   const me = await getSession();
@@ -47,8 +47,8 @@ export default async function Horarios({ searchParams }: { searchParams: Promise
           const slots = db.slots.filter((s) => dateKey(new Date(s.startsAt)) === d).sort((a, b) => a.startsAt.localeCompare(b.startsAt));
           const isToday = d === today;
           return (
-            <section key={d} aria-label={formatLongDay(fromKey(d), lang)} className={`${slots.length === 0 && !holiday ? "hidden md:block" : ""}`}>
-              <h2 className={`border-b-2 pb-2 text-xl ${isToday ? "border-bull text-bull" : "border-line"}`}>{formatLongDay(fromKey(d), lang)}</h2>
+            <section key={d} aria-label={formatLongDay(fromKey(d))} className={`${slots.length === 0 && !holiday ? "hidden md:block" : ""}`}>
+              <h2 className={`border-b-2 pb-2 text-xl ${isToday ? "border-bull text-bull" : "border-line"}`}>{formatLongDay(fromKey(d))}</h2>
               <div className="mt-3 space-y-3">
                 {holiday && <p className="text-sm text-muted">{fill(t.schedule.holiday, { name: holiday })}</p>}
                 {slots.map((s) => <ClassCard key={s.id} c={classView(db, s, me?.id)} viewer={viewer} />)}
