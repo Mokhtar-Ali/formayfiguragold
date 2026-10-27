@@ -31,9 +31,9 @@ export default async function Home() {
   return (
     <>
       <section className="flex flex-col gap-10 px-6 pb-4 pt-6 lg:px-16 lg:pt-8">
-        <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto]">
-          <div>
-            <h1 className="text-[clamp(2.5rem,5.6vw,5.25rem)]">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-6 lg:grid-cols-[1fr_auto]">
+          <div className="min-w-0">
+            <h1 className="text-[clamp(2.1rem,5.6vw,5.25rem)]">
               {t.home.title1}<br />{t.home.title2}
             </h1>
             <p className="mt-6 max-w-md text-lg text-muted">
