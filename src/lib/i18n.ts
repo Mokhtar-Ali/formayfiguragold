@@ -72,7 +72,7 @@ const es = {
         ["¿Cómo pago?", "En línea con Bold, o en caja en el gimnasio."],
       ] as string[][],
     },
-    demoLink: "Probar el demo",
+    demoLink: "Cómo funciona",
     foot: { nav: "Navegación", home: "Inicio", place: "Ubicación", area: copy.area, directions: "Cómo llegar", call: "Llamar", top: "Volver arriba", wa: "WhatsApp" },
   },
   footer: {
