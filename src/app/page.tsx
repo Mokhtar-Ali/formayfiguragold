@@ -5,6 +5,7 @@ import { ClassCard, type Viewer } from "@/components/ClassCard";
 import { OpenNow } from "@/components/OpenNow";
 import { HeroArt } from "@/components/HeroArt";
 import { ClassCover } from "@/components/ClassCover";
+import { Spotlight } from "@/components/Spotlight";
 import { getDb } from "@/lib/db";
 import { dateKey, formatDay, now } from "@/lib/time";
 import { classView } from "@/lib/views";
@@ -78,6 +79,8 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      <Spotlight />
 
       <section className="mt-24 grid gap-10 px-6 md:grid-cols-2 lg:px-16">
         <div>
