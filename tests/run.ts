@@ -3,7 +3,8 @@ import { colombianHolidays, holidayName } from "../src/lib/holidays";
 import { generateSlots } from "../src/lib/schedule";
 import { seedDb, DEMO_ACCOUNTS } from "../src/lib/seed";
 import { emptyDb, nextId } from "../src/lib/store";
-import { classTypes, coaches, templates } from "../src/config/tenant";
+import { classTypes, coaches, events, templates } from "../src/config/tenant";
+import { addSuggestion, eventSpotsLeft, signUpForEvent } from "../src/lib/events";
 import { bookSlot, cancelBooking, checkIn, spotsLeft, waitlistFor, cancelSlot } from "../src/lib/booking";
 import { registerPayment } from "../src/lib/membership";
 import { balance } from "../src/lib/ledger";
@@ -276,6 +277,42 @@ test("report numbers are sane", () => {
   assert.ok(r.occupancy30d > 0 && r.occupancy30d <= 1);
   assert.equal(r.weekly.length, 8);
   assert.ok(nextId(seeded, "t"));
+});
+
+console.log("events and suggestions");
+test("an event never takes more people than its capacity", () => {
+  const db = emptyDb();
+  const e = { ...events[0], capacity: 5, maxPerSignup: 3 };
+  const early = new Date(e.date + "T00:00:00-05:00");
+  early.setDate(early.getDate() - 10);
+  signUpForEvent(db, e, { name: "Ana", phone: "3000000000", people: 3 }, early);
+  throwsCode(() => signUpForEvent(db, e, { name: "Luis", phone: "3000000001", people: 3 }, early), "NOT_ENOUGH_SPOTS");
+  signUpForEvent(db, e, { name: "Luis", phone: "3000000001", people: 2 }, early);
+  assert.equal(eventSpotsLeft(db, e), 0);
+  throwsCode(() => signUpForEvent(db, e, { name: "Eva", phone: "3000000002", people: 1 }, early), "SOLD_OUT");
+});
+test("event signups are refused after the event starts and for bad group sizes", () => {
+  const db = emptyDb();
+  const e = { ...events[0], capacity: 10, maxPerSignup: 2 };
+  const late = new Date(e.date + "T23:00:00-05:00");
+  throwsCode(() => signUpForEvent(db, e, { name: "Ana", phone: "3000000000", people: 1 }, late), "EVENT_PAST");
+  const early = new Date(late.getTime() - 20 * 86_400_000);
+  throwsCode(() => signUpForEvent(db, e, { name: "Ana", phone: "3000000000", people: 3 }, early), "BAD_PEOPLE");
+  throwsCode(() => signUpForEvent(db, e, { name: "Ana", phone: "3000000000", people: 0 }, early), "BAD_PEOPLE");
+});
+test("suggestions are stored unread and need a real message", () => {
+  const db = emptyDb();
+  throwsCode(() => addSuggestion(db, { kind: "idea", message: "ok" }, NOW), "BAD_INPUT");
+  const s = addSuggestion(db, { kind: "idea", name: "  ", message: "Más clases los sábados, por favor." }, NOW);
+  assert.equal(s.read, false);
+  assert.equal(s.name, undefined);
+  assert.equal(db.suggestions.length, 1);
+});
+test("the seed leaves each event with a few spots left", () => {
+  for (const e of events) {
+    const left = eventSpotsLeft(seeded, e);
+    assert.ok(left > 0 && left <= 7, `${e.id} has ${left} left`);
+  }
 });
 
 console.log(`\n${passed} passed, ${failures.length} failed`);

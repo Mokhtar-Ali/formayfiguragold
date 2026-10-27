@@ -1,4 +1,4 @@
-import type { ClassTemplate, ClassType, Coach, Plan } from "@/lib/types";
+import type { ClassTemplate, ClassType, Coach, EventDef, Plan } from "@/lib/types";
 import type { TenantConfig } from "./types";
 
 /**
@@ -65,6 +65,12 @@ export const tenant = {
       c_valeria: "Dirige el Pilates mat de la semana.",
       c_sara: "Dirige el Yoga flow y el Barre.",
     },
+    spotlight: {
+      coachId: "c_valeria",
+      title: "Coach destacada",
+      text: "Valeria guía el Pilates mat con foco en postura y respiración. Grupos pequeños, atención a cada detalle.",
+    },
+    promo: { text: "Tu primera clase de cortesía esta semana", endsOn: "2026-11-30", href: "/unete" },
     demoCoachId: "c_valeria",
     whatsappMessage: "Hola, quiero información sobre Forma y Figura BLUE.",
   },
@@ -99,4 +105,19 @@ export const templates: ClassTemplate[] = [
   { id: "t_bar_lun", classTypeId: "barre", weekday: 1, time: "18:30", durationMin: 50, capacity: 14, coachId: "c_sara" },
   { id: "t_bar_mie", classTypeId: "barre", weekday: 3, time: "18:30", durationMin: 50, capacity: 14, coachId: "c_valeria" },
   { id: "t_bar_sab", classTypeId: "barre", weekday: 6, time: "10:15", durationMin: 50, capacity: 14, coachId: "c_valeria" },
+];
+
+/** SAMPLE event. Confirm with the gym. */
+export const events: EventDef[] = [
+  {
+    id: "yoga-al-aire-libre",
+    title: "Sábado de bienestar",
+    blurb: "Yoga al aire libre, respiración y un desayuno liviano para cerrar la semana.",
+    date: "2026-11-21",
+    time: "09:00",
+    place: "Lugar por confirmar",
+    priceCop: 25_000,
+    capacity: 30,
+    maxPerSignup: 3,
+  },
 ];

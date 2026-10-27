@@ -135,6 +135,41 @@ export interface Contract {
   signature: string;
 }
 
+/** A one-off activity with limited spots, for example a themed party or a challenge. */
+export interface EventDef {
+  id: string;
+  title: string;
+  blurb: string;
+  /** Local date "YYYY-MM-DD" and time "HH:MM". */
+  date: string;
+  time: string;
+  place: string;
+  priceCop: number;
+  capacity: number;
+  /** Maximum spots one signup can take. */
+  maxPerSignup: number;
+}
+
+export interface EventSignup {
+  id: string;
+  eventId: string;
+  name: string;
+  phone: string;
+  people: number;
+  createdAt: string;
+}
+
+export type SuggestionKind = "idea" | "queja" | "felicitacion";
+
+export interface Suggestion {
+  id: string;
+  kind: SuggestionKind;
+  name?: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+}
+
 export interface Db {
   profiles: Profile[];
   memberships: Membership[];
@@ -146,6 +181,8 @@ export interface Db {
   notifications: Notification[];
   payments: Payment[];
   contracts: Contract[];
+  eventSignups: EventSignup[];
+  suggestions: Suggestion[];
   seq: number;
   slotsGeneratedUntil: string;
 }

@@ -9,6 +9,7 @@ export const classTypes = active.classTypes;
 export const coaches = active.coaches;
 export const plans = active.plans;
 export const templates = active.templates;
+export const events = active.events ?? [];
 
 export const getClassType = (id: string) => classTypes.find((c) => c.id === id);
 export const getCoach = (id: string) => coaches.find((c) => c.id === id);

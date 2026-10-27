@@ -23,6 +23,8 @@ export function emptyDb(): Db {
     notifications: [],
     payments: [],
     contracts: [],
+    eventSignups: [],
+    suggestions: [],
     seq: 1,
     slotsGeneratedUntil: "",
   };

@@ -1,4 +1,4 @@
-import type { ClassTemplate, ClassType, Coach, Plan } from "@/lib/types";
+import type { ClassTemplate, ClassType, Coach, EventDef, Plan } from "@/lib/types";
 import type { TenantConfig } from "./types";
 
 /**
@@ -65,6 +65,12 @@ export const tenant = {
       c_mateo: "Dirige Fuerza total y el HIIT de los viernes.",
       c_juliana: "Dirige el Boxeo fit y el HIIT de la semana.",
     },
+    spotlight: {
+      coachId: "c_mateo",
+      title: "Coach destacado",
+      text: "Mateo dirige Fuerza total: técnica primero, peso después. Si quieres resultados que se vean, empieza aquí.",
+    },
+    promo: { text: "Mes de fuerza: dos meses ilimitado a precio especial", endsOn: "2026-11-30", href: "/unete" },
     demoCoachId: "c_mateo",
     whatsappMessage: "Hola, quiero información sobre Forma y Figura RED.",
   },
@@ -99,4 +105,19 @@ export const templates: ClassTemplate[] = [
   { id: "t_box_lun", classTypeId: "boxeo", weekday: 1, time: "19:30", durationMin: 55, capacity: 16, coachId: "c_juliana" },
   { id: "t_box_mie", classTypeId: "boxeo", weekday: 3, time: "06:00", durationMin: 55, capacity: 16, coachId: "c_juliana" },
   { id: "t_box_sab", classTypeId: "boxeo", weekday: 6, time: "10:00", durationMin: 55, capacity: 16, coachId: "c_juliana" },
+];
+
+/** SAMPLE event. Confirm with the gym. */
+export const events: EventDef[] = [
+  {
+    id: "reto-red",
+    title: "Reto RED",
+    blurb: "Seis rondas, cero excusas. Un reto por parejas para toda la comunidad.",
+    date: "2026-11-14",
+    time: "09:00",
+    place: "Sede RED",
+    priceCop: 20_000,
+    capacity: 50,
+    maxPerSignup: 2,
+  },
 ];

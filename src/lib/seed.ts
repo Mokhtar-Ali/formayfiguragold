@@ -1,4 +1,5 @@
-import { classTypes, coaches, getPlan, plans, templates, tenant } from "@/config/tenant";
+import { classTypes, coaches, events, getPlan, plans, templates, tenant } from "@/config/tenant";
+import { signUpForEvent, eventSpotsLeft } from "./events";
 import type { Db, Profile } from "./types";
 import { emptyDb, nextId } from "./store";
 import { generateSlots } from "./schedule";
@@ -164,6 +165,17 @@ export function seedDb(nowDate: Date): Db {
   // The demo member already has one class booked
   const second = window.find((s) => s.classTypeId === secondType);
   if (second) { try { bookSlot(db, demo.id, second.id, nowDate); } catch { /* ignore */ } }
+
+  // Events: sold down to a handful of spots, so the limited-spot flow can be shown
+  for (const e of events) {
+    while (eventSpotsLeft(db, e) > 7) {
+      const name = `${FIRST[Math.floor(r() * FIRST.length)]} ${LAST[Math.floor(r() * LAST.length)]}`;
+      const people = Math.min(1 + Math.floor(r() * e.maxPerSignup), eventSpotsLeft(db, e) - 7);
+      try {
+        signUpForEvent(db, e, { name, phone: `300 ${String(Math.floor(r() * 9_000_000) + 1_000_000)}`, people }, nowDate);
+      } catch { break; /* event already started in a pinned test clock */ }
+    }
+  }
 
   // Quiet the bell for sample data, then leave a couple of fresh notices for the demo member
   for (const n of db.notifications) n.readAt = n.createdAt;

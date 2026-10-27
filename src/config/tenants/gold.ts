@@ -1,4 +1,4 @@
-import type { ClassTemplate, ClassType, Coach, Plan } from "@/lib/types";
+import type { ClassTemplate, ClassType, Coach, EventDef, Plan } from "@/lib/types";
 import type { TenantConfig } from "./types";
 
 /**
@@ -90,6 +90,14 @@ export const tenant = {
       c_daniela: "Dirige el Funcional guiado y la Rumba del sábado.",
       c_ciclo: "Instructor de Cycling. Dirige las clases de bicicleta.",
     },
+    // SAMPLE copy for the featured coach. Replace with the real coach and a real quote.
+    spotlight: {
+      coachId: "c_camilo",
+      title: "Coach destacado",
+      text: "Camilo lleva la Rumba de la semana. Música alta, pasos simples y una sala que no para de moverse. Aquí no se compite, se evoluciona.",
+    },
+    // SAMPLE promo. The price follows the range seen on their flyers.
+    promo: { text: "Mensual desde $59.900 para usuarios nuevos o inactivos", endsOn: "2026-11-30", href: "/unete" },
     demoCoachId: "c_camilo",
     whatsappMessage: "Hola, quiero información sobre Forma y Figura GOLD.",
   },
@@ -185,4 +193,19 @@ export const templates: ClassTemplate[] = [
   { id: "t_fun_lun", classTypeId: "funcional", weekday: 1, time: "06:00", durationMin: 50, capacity: 14, coachId: "c_daniela" },
   { id: "t_fun_mie", classTypeId: "funcional", weekday: 3, time: "06:00", durationMin: 50, capacity: 14, coachId: "c_daniela" },
   { id: "t_fun_jue", classTypeId: "funcional", weekday: 4, time: "18:00", durationMin: 50, capacity: 14, coachId: "c_daniela" },
+];
+
+/** SAMPLE event. The $30.000 price and the limited spots follow their Chiva Rumbera announcement; date, place and capacity are placeholders. */
+export const events: EventDef[] = [
+  {
+    id: "chiva-rumbera",
+    title: "Chiva Rumbera",
+    blurb: "Una noche de rumba a bordo de una chiva con la comunidad GOLD. Cupos limitados.",
+    date: "2026-12-06",
+    time: "20:00",
+    place: "Punto de encuentro por confirmar",
+    priceCop: 30_000,
+    capacity: 40,
+    maxPerSignup: 4,
+  },
 ];

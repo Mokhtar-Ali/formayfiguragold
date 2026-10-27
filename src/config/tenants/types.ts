@@ -1,4 +1,4 @@
-import type { ClassTemplate, ClassType, Coach, Plan } from "@/lib/types";
+import type { ClassTemplate, ClassType, Coach, EventDef, Plan } from "@/lib/types";
 
 /** Colors and type for one gym. Applied as CSS variables by the root layout. */
 export interface TenantTheme {
@@ -30,6 +30,10 @@ export interface TenantCopy {
   /** Shown next to hours and prices that still need the gym's confirmation. */
   sampleNote: string;
   coachBios: Record<string, string>;
+  /** The coach featured on the home page. */
+  spotlight: { coachId: string; title: string; text: string };
+  /** Banner at the top of every public page until endsOn (local date). Sample until the gym confirms. */
+  promo?: { text: string; endsOn: string; href: string };
   /** The coach account the "Entrar" page signs in as. */
   demoCoachId: string;
   whatsappMessage: string;
@@ -71,4 +75,5 @@ export interface TenantBundle {
   coaches: Coach[];
   plans: Plan[];
   templates: ClassTemplate[];
+  events?: EventDef[];
 }
