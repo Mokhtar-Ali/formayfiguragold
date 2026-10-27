@@ -21,6 +21,7 @@ export async function Footer() {
     { href: "/unete", label: t.nav.join },
     ...(events.length > 0 ? [{ href: "/eventos", label: "Eventos" }] : []),
     { href: "/buzon", label: "Buzón" },
+    { href: "/sedes", label: "Nuestras sedes" },
     { href: "/entrar", label: t.nav.enter },
     { href: "/demo", label: t.site.demoLink },
   ];
