@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileBar } from "@/components/MobileBar";
+import { PromoBar } from "@/components/PromoBar";
 import { LangProvider } from "@/components/LangProvider";
 import { getLang, getT } from "@/lib/lang";
 import { tenant } from "@/config/tenant";
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <LangProvider lang={lang}>
+          <PromoBar />
           <Header />
           <main>{children}</main>
           <Footer />
