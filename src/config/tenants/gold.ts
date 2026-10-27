@@ -43,7 +43,7 @@ export const tenant = {
     4: ["05:00", "21:00"],
     5: ["05:00", "21:00"],
     6: ["07:00", "13:00"],
-  } as Record<number, [string, string]>,
+  } as Record<number, [string, string] | null>,
   booking: {
     maxBookingsPerDay: 2,
     cancelWindowHours: 2,
