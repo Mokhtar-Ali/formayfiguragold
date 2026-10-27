@@ -45,8 +45,8 @@ export default async function Home() {
               {t.footer.tagline}. {t.home.sub}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/horarios" className="bg-bull px-6 py-3 font-semibold text-bull-ink hover:brightness-110">{t.home.seeSchedule}</Link>
-              <Link href="/unete" className="border border-line px-6 py-3 font-semibold hover:border-bull">{t.home.join}</Link>
+              <Link href="/horarios" className="bg-accent px-6 py-3 font-semibold text-accent-ink hover:brightness-110">{t.home.seeSchedule}</Link>
+              <Link href="/unete" className="border border-line px-6 py-3 font-semibold hover:border-accent">{t.home.join}</Link>
             </div>
             <OpenNow className="mt-6" />
           </div>
@@ -93,7 +93,7 @@ export default async function Home() {
           <p className="mt-4 max-w-md text-muted">{t.home.bookText}</p>
         </div>
         <ul className="space-y-4 text-lg">
-          {t.home.bullets.map((b) => <li key={b} className="border-l-4 border-bull pl-4">{b}</li>)}
+          {t.home.bullets.map((b) => <li key={b} className="border-l-4 border-accent pl-4">{b}</li>)}
         </ul>
       </section>
 
@@ -101,12 +101,12 @@ export default async function Home() {
         <h2 className="text-4xl sm:text-5xl">{t.site.plans.title}</h2>
         <p className="mt-3 max-w-xl text-muted">{t.site.plans.sub}</p>
         <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1.4fr]">
-          <div className="flex flex-col justify-between bg-bull p-8 text-bull-ink">
+          <div className="flex flex-col justify-between bg-accent p-8 text-accent-ink">
             <div>
               <h3 className="text-4xl">{t.site.plans.trialTitle}</h3>
               <p className="mt-3 max-w-sm text-lg">{t.site.plans.trialText}</p>
             </div>
-            <Link href="/unete" className="mt-6 inline-block self-start bg-bull-ink px-6 py-3 font-semibold text-bull hover:brightness-125">{t.site.plans.trialBtn}</Link>
+            <Link href="/unete" className="mt-6 inline-block self-start bg-accent-ink px-6 py-3 font-semibold text-accent hover:brightness-125">{t.site.plans.trialBtn}</Link>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {plans.map((p) => (
@@ -125,7 +125,7 @@ export default async function Home() {
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {coaches.map((c) => (
             <li key={c.id} className="flex gap-4 border border-line bg-surface p-5">
-              <span className="grid h-16 w-16 shrink-0 place-items-center bg-bull font-display text-3xl font-bold text-bull-ink" aria-hidden>{c.name.replace(/^(Coach|Instructor)\s+/, "").slice(0, 1)}</span>
+              <span className="grid h-16 w-16 shrink-0 place-items-center bg-accent font-display text-3xl font-bold text-accent-ink" aria-hidden>{c.name.replace(/^(Coach|Instructor)\s+/, "").slice(0, 1)}</span>
               <div>
                 <p className="text-xl font-semibold">{c.name}</p>
                 <p className="mt-1 text-muted">{t.site.coaches.bios[c.id]}</p>
@@ -142,7 +142,7 @@ export default async function Home() {
           {t.site.faq.items.map(([q, a]) => (
             <details key={q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
-                {q}<span className="text-bull transition-transform group-open:rotate-45" aria-hidden>+</span>
+                {q}<span className="text-accent transition-transform group-open:rotate-45" aria-hidden>+</span>
               </summary>
               <p className="mt-3 max-w-2xl text-muted">{a}</p>
             </details>
@@ -155,15 +155,15 @@ export default async function Home() {
           <h2 id="visit" className="text-4xl sm:text-5xl">{t.site.visit.title}</h2>
           <p className="mt-3 max-w-md text-muted">{t.site.visit.sub}</p>
           <p className="mt-6 text-lg">{tenant.contact.address}</p>
-          <a href={tenant.contact.phoneHref} className="mt-1 inline-block text-lg hover:text-bull">{tenant.contact.phone}</a>
+          <a href={tenant.contact.phoneHref} className="mt-1 inline-block text-lg hover:text-accent">{tenant.contact.phone}</a>
           <OpenNow className="mt-4" />
           <p className="mb-2 mt-6 font-display text-2xl font-bold uppercase">{t.site.visit.hours}</p>
           {tenant.hours.map((h) => (
             <p key={h.days} className="text-muted"><span className="text-paper">{t.footer.days[h.days] ?? h.days}</span> {h.time}</p>
           ))}
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={mapsLink} target="_blank" rel="noopener noreferrer" className="bg-bull px-6 py-3 font-semibold text-bull-ink hover:brightness-110">{t.site.visit.map}</a>
-            <a href={tenant.contact.phoneHref} className="border border-line px-6 py-3 font-semibold hover:border-bull">{t.site.call}</a>
+            <a href={mapsLink} target="_blank" rel="noopener noreferrer" className="bg-accent px-6 py-3 font-semibold text-accent-ink hover:brightness-110">{t.site.visit.map}</a>
+            <a href={tenant.contact.phoneHref} className="border border-line px-6 py-3 font-semibold hover:border-accent">{t.site.call}</a>
           </div>
         </div>
         <iframe title={t.site.visit.mapTitle} src={`https://maps.google.com/maps?q=${encodeURIComponent(tenant.contact.mapsQuery)}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="min-h-80 w-full border border-line grayscale invert-[.92] contrast-[.9] lg:min-h-full" />

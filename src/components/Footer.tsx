@@ -5,9 +5,9 @@ import { getT } from "@/lib/lang";
 
 const icon = "h-6 w-6 fill-current";
 const arrow = <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current" strokeWidth="1.8" aria-hidden><path d="M7 17 17 7M8 7h9v9" /></svg>;
-const row = "group flex items-center gap-2 py-1.5 font-semibold text-paper/80 hover:text-bull";
+const row = "group flex items-center gap-2 py-1.5 font-semibold text-paper/80 hover:text-accent";
 const head = "text-xs font-bold uppercase tracking-[0.18em] text-paper";
-const circle = "grid h-12 w-12 place-items-center rounded-full border border-line text-paper hover:border-bull hover:text-bull";
+const circle = "grid h-12 w-12 place-items-center rounded-full border border-line text-paper hover:border-accent hover:text-accent";
 
 export async function Footer() {
   const { t } = await getT();
@@ -26,7 +26,7 @@ export async function Footer() {
         <div>
           <Image src="/logo.png" alt="Bulltrain Entrenamiento" width={96} height={96} />
           <p className="mt-4 text-lg text-paper">{t.footer.tagline}</p>
-          <a href={wapp} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-between gap-10 rounded-full border border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-paper hover:border-bull hover:text-bull">
+          <a href={wapp} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-between gap-10 rounded-full border border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-paper hover:border-accent hover:text-accent">
             {f.wa}{arrow}
           </a>
           <div className="mt-5 flex gap-3">
@@ -68,10 +68,10 @@ export async function Footer() {
         <p>
           © {new Date().getFullYear()} Bulltrain Entrenamiento. {t.footer.rights}{" "}
           <span className="whitespace-nowrap">{t.footer.createdBy}{" "}
-            <a href="https://cleopatrasolutions.com/" target="_blank" rel="noopener noreferrer" className="text-bull underline-offset-4 hover:underline">Cleopatra Solutions</a>
+            <a href="https://cleopatrasolutions.com/" target="_blank" rel="noopener noreferrer" className="text-accent underline-offset-4 hover:underline">Cleopatra Solutions</a>
           </span>
         </p>
-        <a href="#" className="flex items-center gap-4 md:mr-20 rounded-full border border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-paper hover:border-bull hover:text-bull">
+        <a href="#" className="flex items-center gap-4 md:mr-20 rounded-full border border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-paper hover:border-accent hover:text-accent">
           {f.top}
           <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8" aria-hidden><path d="M12 19V5M5 12l7-7 7 7" /></svg>
         </a>

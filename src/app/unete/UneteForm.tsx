@@ -45,7 +45,7 @@ export function UneteForm({ plans }: { plans: Plan[] }) {
         <p className="mt-3 text-muted">
           {result.ok ? fill(j.okText, { r: result.receipt }) : j.badText}
         </p>
-        <button onClick={() => router.push(result.ok ? "/horarios" : "/portal")} className="mt-6 bg-bull px-6 py-3 font-semibold text-bull-ink">
+        <button onClick={() => router.push(result.ok ? "/horarios" : "/portal")} className="mt-6 bg-accent px-6 py-3 font-semibold text-accent-ink">
           {result.ok ? j.okBtn : j.badBtn}
         </button>
       </div>
@@ -67,11 +67,11 @@ export function UneteForm({ plans }: { plans: Plan[] }) {
         <legend className="mb-3 font-display text-3xl font-bold uppercase">{j.plan}</legend>
         <div className="grid gap-3 sm:grid-cols-2">
           {plans.map((p) => (
-            <label key={p.id} className={`cursor-pointer border p-4 ${planId === p.id ? "border-bull bg-surface-2" : "border-line bg-surface"}`}>
+            <label key={p.id} className={`cursor-pointer border p-4 ${planId === p.id ? "border-accent bg-surface-2" : "border-line bg-surface"}`}>
               <input type="radio" name="plan" className="sr-only" checked={planId === p.id} onChange={() => setPlanId(p.id)} />
               <span className="block font-display text-2xl font-bold uppercase">{t.plans[p.id]?.name ?? p.name}</span>
               <span className="block text-sm text-muted">{t.plans[p.id]?.blurb ?? p.blurb}</span>
-              <span className="mt-2 block font-semibold text-bull">{formatCop(p.priceCop)} <span className="text-xs font-normal text-muted">{j.sample}</span></span>
+              <span className="mt-2 block font-semibold text-accent">{formatCop(p.priceCop)} <span className="text-xs font-normal text-muted">{j.sample}</span></span>
             </label>
           ))}
         </div>
@@ -99,7 +99,7 @@ export function UneteForm({ plans }: { plans: Plan[] }) {
       </fieldset>
 
       {error && <p role="alert" className="border border-bad p-3 text-bad">{error}</p>}
-      <button disabled={busy} className="bg-bull px-8 py-3 text-lg font-semibold text-bull-ink hover:brightness-110 disabled:opacity-60">
+      <button disabled={busy} className="bg-accent px-8 py-3 text-lg font-semibold text-accent-ink hover:brightness-110 disabled:opacity-60">
         {busy ? j.processing : j.submit}
       </button>
     </form>

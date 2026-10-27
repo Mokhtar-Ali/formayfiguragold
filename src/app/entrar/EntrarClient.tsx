@@ -24,10 +24,10 @@ export function EntrarClient() {
           key={o.id}
           disabled={!!busy}
           onClick={async () => { setBusy(o.id); await api("/api/session", "POST", { accountId: o.id }); router.push(o.to); router.refresh(); }}
-          className="border border-line bg-surface p-6 text-left hover:border-bull disabled:opacity-60"
+          className="border border-line bg-surface p-6 text-left hover:border-accent disabled:opacity-60"
         >
           <p className="font-display text-3xl font-bold uppercase">{txt.title}</p>
-          <p className="text-sm text-bull">{txt.who}</p>
+          <p className="text-sm text-accent">{txt.who}</p>
           <p className="mt-3 text-muted">{txt.text}</p>
         </button>
       );

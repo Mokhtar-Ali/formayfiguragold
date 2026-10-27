@@ -3,7 +3,7 @@ import type { Profile } from "./types";
 import { getDb } from "./db";
 import { DEMO_ACCOUNTS } from "./seed";
 
-export const SESSION_COOKIE = "bt_session";
+export const SESSION_COOKIE = "ffg_session";
 
 /**
  * Demo sign-in: the cookie holds a profile id, nothing more.

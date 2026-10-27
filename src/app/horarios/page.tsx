@@ -31,8 +31,8 @@ export default async function Horarios({ searchParams }: { searchParams: Promise
           <p className="mt-3 max-w-xl text-muted">{t.schedule.sub}</p>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          {monday > thisMonday ? <Link className="border border-line px-3 py-2 hover:border-bull" href={`/horarios?w=${addDays(monday, -7)}`}>{t.schedule.prev}</Link> : <span className="px-3 py-2 text-muted">{t.schedule.thisWeek}</span>}
-          {monday < maxMonday && <Link className="border border-line px-3 py-2 hover:border-bull" href={`/horarios?w=${addDays(monday, 7)}`}>{t.schedule.next}</Link>}
+          {monday > thisMonday ? <Link className="border border-line px-3 py-2 hover:border-accent" href={`/horarios?w=${addDays(monday, -7)}`}>{t.schedule.prev}</Link> : <span className="px-3 py-2 text-muted">{t.schedule.thisWeek}</span>}
+          {monday < maxMonday && <Link className="border border-line px-3 py-2 hover:border-accent" href={`/horarios?w=${addDays(monday, 7)}`}>{t.schedule.next}</Link>}
         </div>
       </div>
       <ul className="mt-5 flex flex-wrap gap-4 text-sm text-muted">
@@ -48,7 +48,7 @@ export default async function Horarios({ searchParams }: { searchParams: Promise
           const isToday = d === today;
           return (
             <section key={d} aria-label={formatLongDay(fromKey(d))} className={`${slots.length === 0 && !holiday ? "hidden md:block" : ""}`}>
-              <h2 className={`border-b-2 pb-2 text-xl ${isToday ? "border-bull text-bull" : "border-line"}`}>{formatLongDay(fromKey(d))}</h2>
+              <h2 className={`border-b-2 pb-2 text-xl ${isToday ? "border-accent text-accent" : "border-line"}`}>{formatLongDay(fromKey(d))}</h2>
               <div className="mt-3 space-y-3">
                 {holiday && <p className="text-sm text-muted">{fill(t.schedule.holiday, { name: holiday })}</p>}
                 {slots.map((s) => <ClassCard key={s.id} c={classView(db, s, me?.id)} viewer={viewer} />)}

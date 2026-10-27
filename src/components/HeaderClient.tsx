@@ -33,12 +33,12 @@ export function Bell() {
     <div className="relative" ref={ref}>
       <button
         onClick={async () => { setOpen(!open); if (!open && unread) { await api("/api/notifications/read", "POST"); setTimeout(load, 1500); } }}
-        className="relative grid h-10 w-10 place-items-center border border-line hover:border-bull"
+        className="relative grid h-10 w-10 place-items-center border border-line hover:border-accent"
         aria-label={`Notificaciones${unread ? `, ${unread} sin leer` : ""}`}
         aria-expanded={open}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8" /><path d="M10 20a2 2 0 0 0 4 0" /></svg>
-        {unread > 0 && <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center bg-bull px-1 text-xs font-semibold text-bull-ink">{unread}</span>}
+        {unread > 0 && <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center bg-accent px-1 text-xs font-semibold text-accent-ink">{unread}</span>}
       </button>
       {open && (
         <div className="absolute right-0 z-50 mt-2 max-h-96 w-80 overflow-auto border border-line bg-surface shadow-2xl">

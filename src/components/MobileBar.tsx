@@ -16,7 +16,7 @@ export async function MobileBar() {
   return (
     <>
       <div className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-line bg-ink/95 p-3 backdrop-blur md:hidden">
-        <Link href={href} className="flex-1 bg-bull py-3 text-center font-semibold text-bull-ink">{t.site.reserve}</Link>
+        <Link href={href} className="flex-1 bg-accent py-3 text-center font-semibold text-accent-ink">{t.site.reserve}</Link>
         <a href={wapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 border border-line px-4 py-3 font-semibold">{icon}{t.site.whatsapp}</a>
       </div>
       <a href={wapp} target="_blank" rel="noopener noreferrer" aria-label={t.site.whatsapp} className="fixed bottom-6 right-6 z-40 hidden h-14 w-14 place-items-center rounded-full bg-[#25d366] text-black shadow-lg hover:brightness-110 md:grid">

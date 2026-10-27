@@ -14,9 +14,9 @@ interface TodayClass { id: string; name: string; color: string; startsAt: string
 interface Member { id: string; name: string; email: string; phone: string; planName: string | null; planKind: string | null; endsAt: string | null; active: boolean; credits: number }
 interface Pay { id: string; member: string; plan: string; amountCop: number; method: string; status: string; at: string; receiptNo: string }
 
-const tabBtn = (on: boolean) => `border-b-2 px-4 py-3 font-semibold ${on ? "border-bull text-bull" : "border-transparent text-muted hover:text-paper"}`;
+const tabBtn = (on: boolean) => `border-b-2 px-4 py-3 font-semibold ${on ? "border-accent text-accent" : "border-transparent text-muted hover:text-paper"}`;
 const input = "border border-line bg-surface px-3 py-2 text-paper";
-const small = "border border-line px-3 py-1.5 text-sm hover:border-bull disabled:opacity-50";
+const small = "border border-line px-3 py-1.5 text-sm hover:border-accent disabled:opacity-50";
 
 export function StaffApp({ role, classTypes, coaches, plans }: { role: Role; classTypes: Opt[]; coaches: Opt[]; plans: Opt[] }) {
   const tabs = [
@@ -136,7 +136,7 @@ function MemberPanel({ m, plans, act, msg }: { m: Member; plans: Opt[]; act: (fn
         <div className="mt-2 flex flex-wrap gap-2">
           <select className={input} value={planId} onChange={(e) => setPlanId(e.target.value)} aria-label="Plan">{plans.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select>
           <select className={input} value={method} onChange={(e) => setMethod(e.target.value)} aria-label="Método"><option value="cash">Efectivo</option><option value="transfer">Transferencia</option></select>
-          <button className="bg-bull px-4 py-2 font-semibold text-bull-ink" onClick={() => act(() => api(`/api/staff/members/${m.id}/membership`, "POST", { planId, method }), "Pago registrado y plan activado.")}>Registrar</button>
+          <button className="bg-accent px-4 py-2 font-semibold text-accent-ink" onClick={() => act(() => api(`/api/staff/members/${m.id}/membership`, "POST", { planId, method }), "Pago registrado y plan activado.")}>Registrar</button>
         </div>
       </div>
       <div>
@@ -193,7 +193,7 @@ function Classes({ classTypes, coaches }: { classTypes: Opt[]; coaches: Opt[] })
           <label className="text-sm">Duración (min)<input name="m" type="number" defaultValue={60} className={`${input} mt-1 w-full`} /></label>
           <label className="text-sm">Cupo<input name="k" type="number" defaultValue={16} className={`${input} mt-1 w-full`} /></label>
         </div>
-        <button className="bg-bull px-5 py-2 font-semibold text-bull-ink">Crear clase</button>
+        <button className="bg-accent px-5 py-2 font-semibold text-accent-ink">Crear clase</button>
         {msg && <p role="status" className="text-sm">{msg}</p>}
       </form>
       <div>
@@ -260,7 +260,7 @@ function Reports() {
             {r.atRisk.length === 0 && <li className="px-4 py-2 text-muted">Nadie en riesgo.</li>}
             {r.atRisk.map((a) => <li key={a.memberId} className="px-4 py-2"><span className="font-semibold">{a.name}</span><span className="block text-sm text-muted">{a.reason}</span></li>)}
           </ul>
-          <a href="/api/staff/export" className="mt-6 inline-block border border-line px-4 py-2 hover:border-bull">Descargar socios (CSV)</a>
+          <a href="/api/staff/export" className="mt-6 inline-block border border-line px-4 py-2 hover:border-accent">Descargar socios (CSV)</a>
         </section>
       </div>
     </div>
@@ -271,7 +271,7 @@ function Updates() {
   return (
     <ol className="max-w-2xl space-y-6">
       {UPDATES.map((u) => (
-        <li key={u.title} className="border-l-4 border-bull pl-4">
+        <li key={u.title} className="border-l-4 border-accent pl-4">
           <p className="text-sm text-muted">{u.date}</p>
           <p className="text-xl font-semibold">{u.title}</p>
           <p className="text-muted">{u.body}</p>

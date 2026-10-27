@@ -35,7 +35,7 @@ export function ClassCard({ c, viewer, onChange }: { c: ClassView; viewer: Viewe
   const btn = "w-full border px-3 py-2 text-sm font-semibold disabled:opacity-50";
 
   return (
-    <article className={`border bg-surface p-3 ${c.cancelled ? "opacity-50" : ""} ${c.mine ? "border-bull" : "border-line"}`} style={{ borderLeft: `4px solid ${c.color}` }}>
+    <article className={`border bg-surface p-3 ${c.cancelled ? "opacity-50" : ""} ${c.mine ? "border-accent" : "border-line"}`} style={{ borderLeft: `4px solid ${c.color}` }}>
       <div>
         <p className="font-display text-2xl font-bold leading-none whitespace-nowrap">{formatTime(c.startsAt)}</p>
         <p className={`mt-1 text-sm font-semibold ${c.cancelled ? "text-bad" : full ? "text-bad" : low ? "text-warn" : "text-ok"}`}>
@@ -46,9 +46,9 @@ export function ClassCard({ c, viewer, onChange }: { c: ClassView; viewer: Viewe
       <p className="text-sm text-muted">{c.coach}</p>
       <div className="mt-3">
         {c.cancelled || past ? null : viewer === "guest" ? (
-          <Link href="/entrar" className={`${btn} block border-line text-center hover:border-bull`}>{k.loginToBook}</Link>
+          <Link href="/entrar" className={`${btn} block border-line text-center hover:border-accent`}>{k.loginToBook}</Link>
         ) : viewer === "staff" ? null : c.mine === "booked" ? (
-          <button disabled={busy} className={`${btn} border-bull text-bull`} onClick={() => run(() => api(`/api/bookings/${c.bookingId}`, "DELETE"), () => k.okCancel)}>
+          <button disabled={busy} className={`${btn} border-accent text-accent`} onClick={() => run(() => api(`/api/bookings/${c.bookingId}`, "DELETE"), () => k.okCancel)}>
             {k.booked}
           </button>
         ) : c.mine === "waitlisted" ? (
@@ -58,7 +58,7 @@ export function ClassCard({ c, viewer, onChange }: { c: ClassView; viewer: Viewe
         ) : (
           <button
             disabled={busy}
-            className={`${btn} ${full ? "border-line hover:border-bull" : "border-bull bg-bull text-bull-ink hover:brightness-110"}`}
+            className={`${btn} ${full ? "border-line hover:border-accent" : "border-accent bg-accent text-accent-ink hover:brightness-110"}`}
             onClick={() => run(() => api<{ status: string; position?: number }>("/api/bookings", "POST", { slotId: c.id }), (r) => (r.status === "booked" ? k.okBooked : fill(k.okWaitlist, { n: r.position })))}
           >
             {full ? k.joinWaitlist : k.reserve}

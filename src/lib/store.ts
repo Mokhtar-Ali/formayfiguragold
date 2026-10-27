@@ -8,7 +8,7 @@ import type { Db } from "./types";
  * and writes in the app go through the functions in lib/, never through this
  * object directly from a page, so the swap stays in one place.
  */
-const KEY = Symbol.for("bulltrain.db");
+const KEY = Symbol.for("forma-y-figura.db");
 type G = typeof globalThis & { [KEY]?: Db };
 
 export function emptyDb(): Db {

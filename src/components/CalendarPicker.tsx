@@ -40,7 +40,7 @@ export function CalendarPicker({ allowPast = false, renderDay }: {
   const [y, mo] = ym.split("-").map(Number);
   const shift = (n: number) => { const t = new Date(Date.UTC(y, mo - 1 + n, 1)); setYm(`${t.getUTCFullYear()}-${String(t.getUTCMonth() + 1).padStart(2, "0")}`); };
   const dayClasses = (byDay.get(sel) ?? []).filter((c) => !c.cancelled || allowPast);
-  const nav = "border border-line px-4 py-2 hover:border-bull disabled:opacity-30 disabled:hover:border-line";
+  const nav = "border border-line px-4 py-2 hover:border-accent disabled:opacity-30 disabled:hover:border-line";
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
@@ -64,7 +64,7 @@ export function CalendarPicker({ allowPast = false, renderDay }: {
                 onClick={() => { setSel(d); if (!inMonth) setYm(d.slice(0, 7)); }}
                 aria-pressed={isSel}
                 aria-label={`${formatLongDay(fromKey(d))}, ${list.length} clases`}
-                className={`flex aspect-square flex-col items-center justify-center gap-1 border text-base ${isSel ? "border-bull bg-bull text-bull-ink" : d === today ? "border-bull" : "border-line hover:border-bull"} ${inMonth ? "" : "opacity-40"} disabled:opacity-20 disabled:hover:border-line`}
+                className={`flex aspect-square flex-col items-center justify-center gap-1 border text-base ${isSel ? "border-accent bg-accent text-accent-ink" : d === today ? "border-accent" : "border-line hover:border-accent"} ${inMonth ? "" : "opacity-40"} disabled:opacity-20 disabled:hover:border-line`}
               >
                 <span className="font-semibold">{Number(d.slice(8))}</span>
                 <span className="flex h-2 gap-0.5">

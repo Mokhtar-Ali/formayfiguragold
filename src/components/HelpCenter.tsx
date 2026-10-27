@@ -12,7 +12,7 @@ export function HelpCenter({ audience }: { audience: Article["audience"] }) {
       <div className="mt-6 divide-y divide-line border border-line">
         {list.map((a) => (
           <details key={a.id} className="group px-4 py-3" open={!!term}>
-            <summary className="cursor-pointer font-semibold marker:text-bull">{a.title}</summary>
+            <summary className="cursor-pointer font-semibold marker:text-accent">{a.title}</summary>
             <p className="mt-2 text-muted">{a.body}</p>
           </details>
         ))}

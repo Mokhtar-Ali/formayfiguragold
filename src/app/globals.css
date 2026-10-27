@@ -12,8 +12,8 @@
   --color-line: #2b2b26;
   --color-paper: #f3f1ea;
   --color-muted: #a3a094;
-  --color-bull: #ffc20e;
-  --color-bull-ink: #151100;
+  --color-accent: #ffc20e;
+  --color-accent-ink: #151100;
   --color-ok: #5fd39a;
   --color-warn: #ffb020;
   --color-bad: #ff6b6b;
@@ -36,5 +36,5 @@ h1, h2, h3, .display {
   letter-spacing: 0.02em;
   line-height: 1;
 }
-:focus-visible { outline: 3px solid var(--color-bull); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

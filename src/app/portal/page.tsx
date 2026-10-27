@@ -34,7 +34,7 @@ export default async function Portal() {
     <div className="mx-auto max-w-6xl px-4 pt-10">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h1 className="text-5xl sm:text-6xl">Hola, {me.name.split(" ")[0]}</h1>
-        <a href="/portal/ayuda" className="border border-line px-4 py-2 hover:border-bull">Centro de ayuda</a>
+        <a href="/portal/ayuda" className="border border-line px-4 py-2 hover:border-accent">Centro de ayuda</a>
       </div>
 
       <section className="mt-8 grid gap-4 sm:grid-cols-3" aria-label="Mi plan">
@@ -44,7 +44,7 @@ export default async function Portal() {
         </div>
         <div className="border border-line bg-surface p-5">
           <p className="text-sm text-muted">{unlimited ? "Clases" : "Créditos"}</p>
-          <p className="font-display text-5xl font-bold text-bull">{unlimited ? "Sin límite" : s.credits}</p>
+          <p className="font-display text-5xl font-bold text-accent">{unlimited ? "Sin límite" : s.credits}</p>
         </div>
         <div className="border border-line bg-surface p-5">
           <p className="text-sm text-muted">Vence</p>
@@ -56,7 +56,7 @@ export default async function Portal() {
       <section className="mt-12">
         <h2 className="text-3xl">Mis próximas clases</h2>
         {upcoming.length === 0 && waiting.length === 0 ? (
-          <p className="mt-3 text-muted">No tienes clases reservadas. <a href="#reservar" className="text-bull underline underline-offset-4">Elegir en el calendario</a></p>
+          <p className="mt-3 text-muted">No tienes clases reservadas. <a href="#reservar" className="text-accent underline underline-offset-4">Elegir en el calendario</a></p>
         ) : (
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((x) => (
