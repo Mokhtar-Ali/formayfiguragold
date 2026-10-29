@@ -137,7 +137,7 @@ export const classTypes: ClassType[] = [
 // SAMPLE names. The gym provides the real team.
 export const coaches: Coach[] = [
   { id: "c_camilo", name: "Coach Camilo", photo: "/gold/camilo.png" },
-  { id: "c_daniela", name: "Coach Daniela" },
+  { id: "c_daniela", name: "Coach Diana", photo: "/gold/diana.jpg" },
   { id: "c_ciclo", name: "Instructor de Cycling", photo: "/gold/ciclo.jpg" },
 ];
 
