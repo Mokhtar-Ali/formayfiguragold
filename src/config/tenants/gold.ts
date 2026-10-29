@@ -17,7 +17,7 @@ export const tenant = {
   brand: {
     name: "Forma y Figura",
     subtitle: "GOLD",
-    logo: { src: "/brand/gold-logo.png", width: 355, height: 534 },
+    logo: { src: "/brand/gold-logo.png", width: 348, height: 533 },
     tagline: "Aquí no competimos, evolucionamos",
   },
   contact: {
@@ -73,7 +73,7 @@ export const tenant = {
     headingTracking: "0.04em",
   },
   media: {
-    heroLogo: { src: "/brand/gold-logo.png", width: 355, height: 534, alt: "Forma y Figura GOLD" },
+    heroLogo: { src: "/brand/gold-logo.png", width: 348, height: 533, alt: "Forma y Figura GOLD" },
     gallery: [
       { src: "/gold/group.jpg", width: 578, height: 762, alt: "Socios posando frente al logo del gimnasio" },
       { src: "/gold/machines.jpg", width: 594, height: 548, alt: "Máquinas de fuerza amarillas en la sala" },
