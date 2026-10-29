@@ -124,6 +124,7 @@ export const classTypes: ClassType[] = [
   {
     id: "cycling",
     name: "Cycling",
+    photo: "/gold/cycling.jpg",
     color: "#f3dc9c",
     blurb: "Sala de cycling con música y luces. Agenda tu bicicleta en menos de un minuto.",
   },
