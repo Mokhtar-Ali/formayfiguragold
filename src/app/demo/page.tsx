@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Words } from "@/components/words";
 import { tenant } from "@/config/tenant";
 import { getT } from "@/lib/lang";
 
@@ -18,7 +19,7 @@ export default async function ComoFunciona() {
   const { t } = await getT();
   return (
     <div className="px-6 pt-10 lg:px-16">
-      <h1 className="text-5xl sm:text-6xl">Reserva en línea</h1>
+      <h1 className="text-5xl sm:text-6xl"><Words text="Reserva en línea" /></h1>
       <p className="mt-3 max-w-2xl text-lg text-muted">
         {tenant.brand.name} {tenant.brand.subtitle} ya tiene comunidad. Esto es lo que cambia cuando horarios, reservas, promos y pagos viven en un solo lugar.
       </p>
@@ -41,7 +42,7 @@ export default async function ComoFunciona() {
       </div>
 
       <div className="mt-12 bg-accent p-8 text-accent-ink sm:p-12">
-        <h2 className="text-4xl sm:text-5xl">{t.home.tryTitle}</h2>
+        <h2 className="text-4xl sm:text-5xl"><Words text={t.home.tryTitle} /></h2>
         <p className="mt-4 max-w-xl text-lg">{t.home.tryText}</p>
         <Link href="/entrar" className="mt-6 inline-block bg-accent-ink px-6 py-3 font-semibold text-accent hover:brightness-125">{t.home.tryBtn}</Link>
       </div>

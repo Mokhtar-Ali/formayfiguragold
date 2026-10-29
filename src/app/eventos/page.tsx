@@ -1,4 +1,5 @@
 import { events, tenant } from "@/config/tenant";
+import { Words } from "@/components/words";
 import { getDb } from "@/lib/db";
 import { eventSpotsLeft, eventStart } from "@/lib/events";
 import { formatCop, formatLongDay, formatTime, fromKey, now } from "@/lib/time";
@@ -13,7 +14,7 @@ export default async function Eventos() {
   const upcoming = events.filter((e) => eventStart(e) > at);
   return (
     <div className="px-6 pt-10 lg:px-16">
-      <h1 className="text-5xl sm:text-6xl">Eventos</h1>
+      <h1 className="text-5xl sm:text-6xl"><Words text="Eventos" /></h1>
       <p className="mt-3 max-w-xl text-muted">Planes fuera de la rutina con cupos limitados. Inscríbete en un minuto y tu lugar queda guardado.</p>
       <p className="mt-2 text-sm text-muted">{tenant.copy.sampleNote}</p>
       {upcoming.length === 0 && <p className="mt-10 text-muted">No hay eventos próximos. Vuelve pronto.</p>}
@@ -25,7 +26,7 @@ export default async function Eventos() {
             <li key={e.id} className="border border-line bg-surface">
               <div className="border-b border-line p-6 sm:p-8" style={{ background: "linear-gradient(160deg, var(--color-surface-2), var(--color-surface))" }}>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{formatLongDay(fromKey(e.date))} · {formatTime(eventStart(e))}</p>
-                <h2 className="mt-3 text-4xl sm:text-5xl">{e.title}</h2>
+                <h2 className="mt-3 text-4xl sm:text-5xl"><Words text={e.title} /></h2>
                 <p className="mt-3 max-w-md text-muted">{e.blurb}</p>
                 <p className="mt-4 text-paper">{e.place}</p>
                 <div className="mt-6 flex flex-wrap items-end justify-between gap-4">

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Words } from "@/components/words";
 import Link from "next/link";
 import { coaches, tenant } from "@/config/tenant";
 
@@ -10,7 +11,7 @@ export function Spotlight() {
   const first = coach.name.replace(/^(Coach|Instructor)\s+/, "");
   return (
     <section className="mt-24 px-6 lg:px-16" aria-labelledby="spot">
-      <div className="grid overflow-hidden border border-line bg-surface md:grid-cols-[minmax(0,0.8fr)_1.2fr]">
+      <div data-reveal="up" className="grid overflow-hidden border border-line bg-surface md:grid-cols-[minmax(0,0.8fr)_1.2fr]">
         {coach.photo ? (
           <div className="relative min-h-80 overflow-hidden">
             <Image src={coach.photo} alt={coach.name} fill sizes="(min-width:768px) 32vw, 100vw" className="object-cover object-top" />
@@ -23,7 +24,7 @@ export function Spotlight() {
         )}
         <div className="p-8 sm:p-12">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{sp.title}</p>
-          <h2 id="spot" className="mt-3 text-4xl sm:text-5xl">{coach.name}</h2>
+          <h2 id="spot" className="mt-3 text-4xl sm:text-5xl"><Words text={coach.name} /></h2>
           <p className="mt-5 max-w-lg text-lg text-muted">{sp.text}</p>
           <Link href="/horarios" className="mt-8 inline-block bg-accent px-6 py-3 font-semibold text-accent-ink hover:brightness-110">Ver sus clases</Link>
         </div>

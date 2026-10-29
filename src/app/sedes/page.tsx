@@ -1,11 +1,12 @@
 import { SEDES } from "@/config/group";
+import { Words } from "@/components/words";
 
 export const metadata = { title: "Nuestras sedes" };
 
 export default function Sedes() {
   return (
     <div className="px-6 pt-10 lg:px-16">
-      <h1 className="text-5xl sm:text-6xl">Nuestras sedes</h1>
+      <h1 className="text-5xl sm:text-6xl"><Words text="Nuestras sedes" /></h1>
       <p className="mt-3 max-w-2xl text-lg text-muted">Tres sedes, cada una con su identidad, su horario y su comunidad. Una sola cuenta de reservas por sede, con la misma forma de entrenar.</p>
       <ul className="mt-10 grid gap-6 lg:grid-cols-3">
         {SEDES.map((s) => (

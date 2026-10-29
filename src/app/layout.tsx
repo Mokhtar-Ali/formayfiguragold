@@ -1,4 +1,4 @@
-import { ScrollFX } from "@/components/ScrollFX";
+import { RevealObserver } from "@/components/reveal-observer";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
@@ -26,19 +26,19 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
   return (
-    <html lang={lang}>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
-        <script dangerouslySetInnerHTML={{ __html: "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx')" }} />
       </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rv')" }} />
         <LangProvider lang={lang}>
           <PromoBar />
           <Header />
           <main>{children}</main>
           <Footer />
           <MobileBar />
-          <ScrollFX />
+          <RevealObserver />
         </LangProvider>
       </body>
     </html>

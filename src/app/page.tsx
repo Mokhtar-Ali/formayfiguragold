@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Words } from "@/components/words";
 import { classTypes, coaches, plans, tenant } from "@/config/tenant";
 import { getSession } from "@/lib/auth";
 import { ClassCard, type Viewer } from "@/components/ClassCard";
@@ -36,12 +37,12 @@ export default async function Home() {
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-6 lg:grid-cols-[1fr_auto]">
           <div className="min-w-0">
             <h1 className="text-[clamp(2.1rem,5.6vw,5.25rem)]">
-              {t.home.title1}<br />{t.home.title2}
+              <Words text={t.home.title1} /><br /><Words text={t.home.title2} />
             </h1>
-            <p className="mt-6 max-w-md text-lg text-muted">
+            <p data-reveal="up" data-d="2" className="mt-6 max-w-md text-lg text-muted">
               {t.home.sub}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div data-reveal="up" data-d="3" className="mt-8 flex flex-wrap gap-3">
               <Link href="/horarios" className="bg-accent px-6 py-3 font-semibold text-accent-ink hover:brightness-110">{t.home.seeSchedule}</Link>
               <Link href="/unete" className="border border-line px-6 py-3 font-semibold hover:border-accent">{t.home.join}</Link>
             </div>
@@ -58,12 +59,12 @@ export default async function Home() {
 
         <div aria-label="Próximas clases">
           <div className="mb-3 flex items-center gap-3">
-            <h2 className="text-2xl">{t.home.next}</h2>
+            <h2 className="text-2xl"><Words text={t.home.next} /></h2>
             <span className="flex items-center gap-2 text-sm text-ok"><span className="h-2 w-2 animate-pulse rounded-full bg-ok" />{t.home.live}</span>
           </div>
           <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {next.map((c) => (
-              <li key={c.id}>
+            {next.map((c, i) => (
+              <li key={c.id} data-reveal="up" data-d={String(Math.min(i + 1, 5))}>
                 <p className="mb-1 text-sm text-muted">{dateKey(new Date(c.startsAt)) === today ? t.home.today : formatDay(c.startsAt)}</p>
                 <ClassCard c={c} viewer={viewer} />
               </li>
@@ -73,10 +74,10 @@ export default async function Home() {
       </section>
 
       <section className="mt-24 px-6 lg:px-16">
-        <h2 className="text-4xl sm:text-5xl">{t.home.ways}</h2>
+        <h2 className="text-4xl sm:text-5xl"><Words text={t.home.ways} /></h2>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {classTypes.map((ct) => (
-            <article key={ct.id} className="overflow-hidden border border-line bg-surface" style={{ borderTop: `4px solid ${ct.color}` }}>
+          {classTypes.map((ct, i) => (
+            <article key={ct.id} data-reveal="up" data-d={String(i + 1)} className="overflow-hidden border border-line bg-surface" style={{ borderTop: `4px solid ${ct.color}` }}>
               <ClassCover name={t.classTypes[ct.id].name} color={ct.color} photo={ct.photo} className="h-80 md:h-[26rem]" />
               <div className="p-6">
                 <h3 className="text-3xl">{t.classTypes[ct.id].name}</h3>
@@ -94,22 +95,22 @@ export default async function Home() {
 
       <section className={`mt-24 grid gap-10 px-6 lg:px-16 ${tenant.media?.feature ? "md:grid-cols-[0.8fr_1.2fr]" : "md:grid-cols-2"}`}>
         {tenant.media?.feature && (
-          <div className="relative min-h-80 overflow-hidden border border-line md:min-h-[26rem]">
+          <div data-reveal="img" className="relative min-h-80 overflow-hidden border border-line md:min-h-[26rem]">
             <Image src={tenant.media.feature.src} alt={tenant.media.feature.alt} fill sizes="(min-width:768px) 35vw, 100vw" className="object-cover" />
           </div>
         )}
         <div className="self-center">
-          <h2 className="text-4xl sm:text-5xl">{t.home.bookTitle}</h2>
+          <h2 className="text-4xl sm:text-5xl"><Words text={t.home.bookTitle} /></h2>
           <ul className="mt-8 space-y-4 text-lg">
-            {t.home.bullets.map((b) => <li key={b} className="border-l-4 border-accent pl-4">{b}</li>)}
+            {t.home.bullets.map((b, i) => <li key={b} data-reveal="up" data-d={String(i + 1)} className="border-l-4 border-accent pl-4">{b}</li>)}
           </ul>
         </div>
       </section>
 
       <section className="mt-24 px-6 lg:px-16">
-        <h2 className="text-4xl sm:text-5xl">{t.site.plans.title}</h2>
+        <h2 className="text-4xl sm:text-5xl"><Words text={t.site.plans.title} /></h2>
         <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1.4fr]">
-          <div className="flex flex-col justify-between bg-accent p-8 text-accent-ink">
+          <div data-reveal="up" className="flex flex-col justify-between bg-accent p-8 text-accent-ink">
             <div>
               <h3 className="text-4xl">{t.site.plans.trialTitle}</h3>
               <p className="mt-3 max-w-sm text-lg">{t.site.plans.trialText}</p>
@@ -117,8 +118,8 @@ export default async function Home() {
             <Link href="/unete" className="mt-6 inline-block self-start bg-accent-ink px-6 py-3 font-semibold text-accent hover:brightness-125">{t.site.plans.trialBtn}</Link>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
-            {plans.map((p) => (
-              <li key={p.id} className="border border-line bg-surface p-5">
+            {plans.map((p, i) => (
+              <li key={p.id} data-reveal="up" data-d={String((i % 2) + 1)} className="border border-line bg-surface p-5">
                 <p className="font-display text-2xl font-bold uppercase">{t.plans[p.id]?.name ?? p.name}</p>
                 <p className="mt-2 text-muted">{t.plans[p.id]?.blurb ?? p.blurb}</p>
               </li>
@@ -128,10 +129,10 @@ export default async function Home() {
       </section>
 
       <section className="mt-24 px-6 lg:px-16">
-        <h2 className="text-4xl sm:text-5xl">{t.site.coaches.title}</h2>
+        <h2 className="text-4xl sm:text-5xl"><Words text={t.site.coaches.title} /></h2>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
-          {coaches.map((c) => (
-            <li key={c.id} className="flex gap-4 border border-line bg-surface p-5">
+          {coaches.map((c, i) => (
+            <li key={c.id} data-reveal="up" data-d={String(i + 1)} className="flex gap-4 border border-line bg-surface p-5">
               {c.photo ? (
                 <span className="relative h-16 w-16 shrink-0 overflow-hidden"><Image src={c.photo} alt={c.name} fill sizes="64px" className="object-cover object-top" /></span>
               ) : (
@@ -148,10 +149,10 @@ export default async function Home() {
       </section>
 
       <section className="mt-24 grid gap-10 px-6 lg:grid-cols-[1fr_1.6fr] lg:px-16">
-        <h2 className="text-4xl sm:text-5xl">{t.site.faq.title}</h2>
+        <h2 className="text-4xl sm:text-5xl"><Words text={t.site.faq.title} /></h2>
         <div className="divide-y divide-line border-y border-line">
           {t.site.faq.items.map(([q, a]) => (
-            <details key={q} className="group py-4">
+            <details key={q} data-reveal="up" className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
                 {q}<span className="text-accent transition-transform group-open:rotate-45" aria-hidden>+</span>
               </summary>
@@ -163,7 +164,7 @@ export default async function Home() {
 
       <section className="mt-24 grid gap-8 px-6 lg:grid-cols-2 lg:px-16" aria-labelledby="visit">
         <div>
-          <h2 id="visit" className="text-4xl sm:text-5xl">{t.site.visit.title}</h2>
+          <h2 id="visit" className="text-4xl sm:text-5xl"><Words text={t.site.visit.title} /></h2>
           <p className="mt-6 text-lg">{tenant.contact.address}</p>
           <a href={tenant.contact.phoneHref} className="mt-1 inline-block text-lg hover:text-accent">{tenant.contact.phone}</a>
           <OpenNow className="mt-4" />
@@ -176,7 +177,7 @@ export default async function Home() {
             <a href={tenant.contact.phoneHref} className="border border-line px-6 py-3 font-semibold hover:border-accent">{t.site.call}</a>
           </div>
         </div>
-        <iframe title={t.site.visit.mapTitle} src={`https://maps.google.com/maps?q=${encodeURIComponent(tenant.contact.mapsQuery)}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="min-h-80 w-full border border-line grayscale invert-[.92] contrast-[.9] lg:min-h-full" />
+        <iframe data-reveal="img" title={t.site.visit.mapTitle} src={`https://maps.google.com/maps?q=${encodeURIComponent(tenant.contact.mapsQuery)}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="min-h-80 w-full border border-line grayscale invert-[.92] contrast-[.9] lg:min-h-full" />
       </section>
     </>
   );

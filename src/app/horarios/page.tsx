@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Words } from "@/components/words";
 import { getDb } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { addDays, dateKey, formatLongDay, fromKey, mondayOf, now } from "@/lib/time";
@@ -27,7 +28,7 @@ export default async function Horarios({ searchParams }: { searchParams: Promise
     <div className="mx-auto max-w-6xl px-4 pt-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-5xl sm:text-6xl">{t.schedule.title}</h1>
+          <h1 className="text-5xl sm:text-6xl"><Words text={t.schedule.title} /></h1>
           <p className="mt-3 max-w-xl text-muted">{t.schedule.sub}</p>
         </div>
         <div className="flex items-center gap-2 text-sm">
