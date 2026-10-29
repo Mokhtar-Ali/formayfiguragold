@@ -17,6 +17,7 @@ export const tenant = {
   brand: {
     name: "Forma y Figura",
     subtitle: "GOLD",
+    logo: { src: "/brand/gold-logo.png", width: 444, height: 444 },
     tagline: "Aquí no competimos, evolucionamos",
   },
   contact: {
