@@ -48,7 +48,7 @@ export default async function Home() {
             <OpenNow className="mt-6" />
           </div>
           {tenant.media?.heroLogo ? (
-            <div className="mx-auto grid place-items-center px-8 py-4 lg:mr-0 lg:justify-self-end" style={{ background: "radial-gradient(60% 60% at 50% 50%, var(--color-accent-2), transparent)" }}>
+            <div className="mx-auto grid place-items-center px-14 py-8 lg:mr-0 lg:justify-self-end" style={{ background: "radial-gradient(closest-side, var(--color-accent-2), transparent)" }}>
               <Image src={tenant.media.heroLogo.src} alt={tenant.media.heroLogo.alt} width={tenant.media.heroLogo.width} height={tenant.media.heroLogo.height} priority className="h-[min(46svh,440px)] w-auto" />
             </div>
           ) : (
