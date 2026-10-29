@@ -56,6 +56,8 @@ export interface ClassType {
   color: string;
   blurb: string;
   partner?: string;
+  /** Optional photo under /public for the home page card. */
+  photo?: string;
 }
 
 export interface Coach {

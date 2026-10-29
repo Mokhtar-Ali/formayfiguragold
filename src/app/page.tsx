@@ -77,7 +77,7 @@ export default async function Home() {
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {classTypes.map((ct) => (
             <article key={ct.id} className="overflow-hidden border border-line bg-surface" style={{ borderTop: `4px solid ${ct.color}` }}>
-              <ClassCover name={t.classTypes[ct.id].name} color={ct.color} className="h-56" />
+              <ClassCover name={t.classTypes[ct.id].name} color={ct.color} photo={ct.photo} className="h-80 md:h-[26rem]" />
               <div className="p-6">
                 <h3 className="text-3xl">{t.classTypes[ct.id].name}</h3>
                 <p className="mt-3 text-muted">{t.classTypes[ct.id].blurb}</p>

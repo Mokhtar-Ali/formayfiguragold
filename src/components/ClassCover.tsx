@@ -1,8 +1,19 @@
+import Image from "next/image";
+
 /**
  * Stand-in artwork for a class card until the gym provides real photos:
  * the class color, a fine pattern and the class name set large.
  */
-export function ClassCover({ name, color, className = "" }: { name: string; color: string; className?: string }) {
+export function ClassCover({ name, color, className = "", photo }: { name: string; color: string; className?: string; photo?: string }) {
+  if (photo) {
+    return (
+      <div className={`relative isolate overflow-hidden ${className}`}>
+        <Image src={photo} alt={name} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.45), transparent 40%)" }} aria-hidden />
+        <span className="absolute left-5 top-5 h-2.5 w-2.5 rounded-full" style={{ background: color }} aria-hidden />
+      </div>
+    );
+  }
   return (
     <div
       className={`relative isolate overflow-hidden ${className}`}

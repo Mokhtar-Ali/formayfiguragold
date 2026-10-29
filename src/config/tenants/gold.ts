@@ -117,6 +117,7 @@ export const classTypes: ClassType[] = [
   {
     id: "rumba",
     name: "Rumba",
+    photo: "/gold/rumba.png",
     color: "#e2b04a",
     blurb: "Baile fitness con música latina. Cardio que no se siente como cardio.",
   },
