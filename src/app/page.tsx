@@ -6,6 +6,8 @@ import { OpenNow } from "@/components/OpenNow";
 import { HeroArt } from "@/components/HeroArt";
 import { ClassCover } from "@/components/ClassCover";
 import { Spotlight } from "@/components/Spotlight";
+import { Gallery } from "@/components/Gallery";
+import Image from "next/image";
 import { getDb } from "@/lib/db";
 import { dateKey, formatDay, now } from "@/lib/time";
 import { classView } from "@/lib/views";
@@ -45,7 +47,13 @@ export default async function Home() {
             </div>
             <OpenNow className="mt-6" />
           </div>
-          <HeroArt className="mx-auto aspect-square h-[min(52svh,460px)] w-auto max-w-full lg:mr-0 lg:justify-self-end" />
+          {tenant.media?.heroLogo ? (
+            <div className="mx-auto grid place-items-center px-8 py-4 lg:mr-0 lg:justify-self-end" style={{ background: "radial-gradient(60% 60% at 50% 50%, var(--color-accent-2), transparent)" }}>
+              <Image src={tenant.media.heroLogo.src} alt={tenant.media.heroLogo.alt} width={tenant.media.heroLogo.width} height={tenant.media.heroLogo.height} priority className="h-[min(46svh,440px)] w-auto" />
+            </div>
+          ) : (
+            <HeroArt className="mx-auto aspect-square h-[min(52svh,460px)] w-auto max-w-full lg:mr-0 lg:justify-self-end" />
+          )}
         </div>
 
         <div aria-label="Próximas clases">
@@ -80,21 +88,26 @@ export default async function Home() {
         </div>
       </section>
 
+      <Gallery />
+
       <Spotlight />
 
-      <section className="mt-24 grid gap-10 px-6 md:grid-cols-2 lg:px-16">
-        <div>
+      <section className={`mt-24 grid gap-10 px-6 lg:px-16 ${tenant.media?.feature ? "md:grid-cols-[0.8fr_1.2fr]" : "md:grid-cols-2"}`}>
+        {tenant.media?.feature && (
+          <div className="relative min-h-80 overflow-hidden border border-line md:min-h-[26rem]">
+            <Image src={tenant.media.feature.src} alt={tenant.media.feature.alt} fill sizes="(min-width:768px) 35vw, 100vw" className="object-cover" />
+          </div>
+        )}
+        <div className="self-center">
           <h2 className="text-4xl sm:text-5xl">{t.home.bookTitle}</h2>
-          <p className="mt-4 max-w-md text-muted">{t.home.bookText}</p>
+          <ul className="mt-8 space-y-4 text-lg">
+            {t.home.bullets.map((b) => <li key={b} className="border-l-4 border-accent pl-4">{b}</li>)}
+          </ul>
         </div>
-        <ul className="space-y-4 text-lg">
-          {t.home.bullets.map((b) => <li key={b} className="border-l-4 border-accent pl-4">{b}</li>)}
-        </ul>
       </section>
 
       <section className="mt-24 px-6 lg:px-16">
         <h2 className="text-4xl sm:text-5xl">{t.site.plans.title}</h2>
-        <p className="mt-3 max-w-xl text-muted">{t.site.plans.sub}</p>
         <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1.4fr]">
           <div className="flex flex-col justify-between bg-accent p-8 text-accent-ink">
             <div>
@@ -116,7 +129,6 @@ export default async function Home() {
 
       <section className="mt-24 px-6 lg:px-16">
         <h2 className="text-4xl sm:text-5xl">{t.site.coaches.title}</h2>
-        <p className="mt-3 text-muted">{t.site.coaches.sub}</p>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {coaches.map((c) => (
             <li key={c.id} className="flex gap-4 border border-line bg-surface p-5">
@@ -148,7 +160,6 @@ export default async function Home() {
       <section className="mt-24 grid gap-8 px-6 lg:grid-cols-2 lg:px-16" aria-labelledby="visit">
         <div>
           <h2 id="visit" className="text-4xl sm:text-5xl">{t.site.visit.title}</h2>
-          <p className="mt-3 max-w-md text-muted">{t.site.visit.sub}</p>
           <p className="mt-6 text-lg">{tenant.contact.address}</p>
           <a href={tenant.contact.phoneHref} className="mt-1 inline-block text-lg hover:text-accent">{tenant.contact.phone}</a>
           <OpenNow className="mt-4" />

@@ -67,6 +67,8 @@ export interface TenantConfig {
   goals: { monthlyNewMembers: number; monthlyRevenueCop: number };
   theme: TenantTheme;
   copy: TenantCopy;
+  /** Optional real photos. Tenants without it keep the generated artwork. */
+  media?: { heroLogo?: Photo; gallery?: Photo[]; feature?: Photo };
 }
 
 export interface TenantBundle {
@@ -77,3 +79,5 @@ export interface TenantBundle {
   templates: ClassTemplate[];
   events?: EventDef[];
 }
+
+export type Photo = { src: string; width: number; height: number; alt: string };
