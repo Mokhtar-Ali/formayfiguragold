@@ -81,7 +81,7 @@ const es = {
     tagline: tenant.brand.tagline,
   },
   enter: {
-    title: "Entrar a la demo", sub: "No hay contraseñas. Elige quién quieres ser y recorre el sistema con datos de ejemplo.",
+    title: "Entrar al ejemplo", sub: "No hay contraseñas. Elige quién quieres ser y recorre el sistema con datos de ejemplo.",
     options: [
       { title: "Miembro", who: "Camila Demo", text: "Paquete de 12 clases. Reserva, cancela y prueba la lista de espera." },
       { title: "Coach", who: demoCoach.name, text: "Ve el listado de sus clases de hoy y registra asistencia." },
