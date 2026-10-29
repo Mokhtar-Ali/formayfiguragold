@@ -1,3 +1,4 @@
+import { ScrollFX } from "@/components/ScrollFX";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={lang}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
+        <script dangerouslySetInnerHTML={{ __html: "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx')" }} />
       </head>
       <body>
         <LangProvider lang={lang}>
@@ -36,6 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main>{children}</main>
           <Footer />
           <MobileBar />
+          <ScrollFX />
         </LangProvider>
       </body>
     </html>
