@@ -138,7 +138,7 @@ export const classTypes: ClassType[] = [
 export const coaches: Coach[] = [
   { id: "c_camilo", name: "Coach Camilo", photo: "/gold/camilo.png" },
   { id: "c_daniela", name: "Coach Daniela" },
-  { id: "c_ciclo", name: "Instructor de Cycling" },
+  { id: "c_ciclo", name: "Instructor de Cycling", photo: "/gold/ciclo.jpg" },
 ];
 
 // SAMPLE plans. The one-month and two-month prices follow the promo range seen on their flyers.
