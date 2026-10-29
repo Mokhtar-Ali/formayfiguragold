@@ -61,6 +61,8 @@ export interface ClassType {
 export interface Coach {
   id: string;
   name: string;
+  /** Optional portrait under /public. Without it the card shows the initial. */
+  photo?: string;
 }
 
 export interface ClassTemplate {

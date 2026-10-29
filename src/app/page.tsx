@@ -132,7 +132,11 @@ export default async function Home() {
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {coaches.map((c) => (
             <li key={c.id} className="flex gap-4 border border-line bg-surface p-5">
-              <span className="grid h-16 w-16 shrink-0 place-items-center bg-accent font-display text-3xl font-bold text-accent-ink" aria-hidden>{c.name.replace(/^(Coach|Instructor)\s+/, "").slice(0, 1)}</span>
+              {c.photo ? (
+                <span className="relative h-16 w-16 shrink-0 overflow-hidden"><Image src={c.photo} alt={c.name} fill sizes="64px" className="object-cover object-top" /></span>
+              ) : (
+                <span className="grid h-16 w-16 shrink-0 place-items-center bg-accent font-display text-3xl font-bold text-accent-ink" aria-hidden>{c.name.replace(/^(Coach|Instructor)\s+/, "").slice(0, 1)}</span>
+              )}
               <div>
                 <p className="text-xl font-semibold">{c.name}</p>
                 <p className="mt-1 text-muted">{t.site.coaches.bios[c.id]}</p>
