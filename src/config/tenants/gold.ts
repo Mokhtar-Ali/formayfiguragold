@@ -131,6 +131,7 @@ export const classTypes: ClassType[] = [
   {
     id: "funcional",
     name: "Funcional guiado",
+    photo: "/gold/funcional.jpg",
     color: "#b98b2e",
     blurb: "Circuitos guiados por un coach en la zona de maquinaria importada.",
   },
